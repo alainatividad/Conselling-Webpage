@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Menu } from "semantic-ui-react";
 
 const AppNavbar = () => {
-  // set modal display state
-  // const [showModal, setShowModal] = useState(false);
   const [activeItem, setActiveItem] = useState("home");
 
   const handleItemClick = async (name) => {
@@ -15,30 +13,47 @@ const AppNavbar = () => {
     <div>
       <Menu pointing secondary>
         <Menu.Item
+          as={Link}
+          to="/"
           name="home"
           active={activeItem === "home"}
           onClick={() => handleItemClick("home")}
         />
         <Menu.Item
-          name="messages"
-          active={activeItem === "messages"}
-          onClick={() => handleItemClick("messages")}
+          as={Link}
+          to="/about"
+          name="about"
+          active={activeItem === "about"}
+          onClick={() => handleItemClick("about")}
         />
         <Menu.Item
-          name="friends"
-          active={activeItem === "friends"}
-          onClick={() => handleItemClick("friends")}
+          as={Link}
+          to="/services"
+          name="services"
+          active={activeItem === "services"}
+          onClick={() => handleItemClick("services")}
+        />
+        <Menu.Item
+          as={Link}
+          to="/contact-us"
+          name="contact us"
+          active={activeItem === "contact"}
+          onClick={() => handleItemClick("contact")}
         />
         <Menu.Menu position="right">
           <Menu.Item
+            as={Link}
+            to="/sign-up"
             name="sign up"
             active={activeItem === "signup"}
             onClick={() => handleItemClick("signup")}
           />
           <Menu.Item
-            name="logout"
-            active={activeItem === "logout"}
-            onClick={() => handleItemClick("logout")}
+            as={Link}
+            to="/sign-in"
+            name="sign in"
+            active={activeItem === "signin"}
+            onClick={() => handleItemClick("signin")}
           />
         </Menu.Menu>
       </Menu>
