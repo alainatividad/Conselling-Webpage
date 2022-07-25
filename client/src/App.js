@@ -7,6 +7,8 @@ import "fomantic-ui-css/semantic.css";
 import { Container } from "semantic-ui-react";
 
 import Navbar from "./components/Navbar";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 
 const client = new ApolloClient({
@@ -34,6 +36,8 @@ function App() {
                 path="/profiles/:profileId" 
                 element={<Profile />} 
               /> */}
+              <Route path="/sign-up" element={<Signup />} />
+              <Route path="/login" element={<Login />} />
               {/* <Route
                 path="*"
                 element={<h1 className="display-2">Wrong page!</h1>}
