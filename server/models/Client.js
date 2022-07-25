@@ -5,11 +5,6 @@ const bcrypt = require("bcrypt");
 // const bookSchema = require("./Book");
 
 const clientSchema = new Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-  },
   email: {
     type: String,
     required: true,
@@ -35,6 +30,9 @@ const clientSchema = new Schema({
     required: true,
   },
   scheduleDate: {
+    type: String,
+  },
+  consultant: {
     type: String,
   },
 });
