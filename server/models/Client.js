@@ -4,48 +4,40 @@ const bcrypt = require("bcrypt");
 // import schema from Book.js
 // const bookSchema = require("./Book");
 
-const clientSchema = new Schema(
-  {
-    username: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      match: [/.+@.+\..+/, "Must use a valid email address"],
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    firstName: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    lastName: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    contactNumber: {
-      type: String,
-      required: true,
-    },
-
-    // set savedBooks to be an array of data that adheres to the bookSchema
-    savedBooks: [bookSchema],
+const clientSchema = new Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true,
   },
-  // set this to use virtual below
-  {
-    toJSON: {
-      virtuals: true,
-    },
-  }
-);
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    match: [/.+@.+\..+/, "Must use a valid email address"],
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  firstName: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  lastName: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  contactNumber: {
+    type: String,
+    required: true,
+  },
+  scheduleDate: {
+    type: String,
+  },
+});
 
 // hash user password
 clientSchema.pre("save", async function (next) {
@@ -61,11 +53,6 @@ clientSchema.pre("save", async function (next) {
 clientSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
-
-// when we query a user, we'll also get another field called `bookCount` with the number of saved books we have
-clientSchema.virtual("bookCount").get(function () {
-  return this.savedBooks.length;
-});
 
 const Client = model("Client", clientSchema);
 
