@@ -50,10 +50,10 @@ const AppNavbar = () => {
           />
           <Menu.Item
             as={Link}
-            to="/sign-in"
-            name="sign in"
-            active={activeItem === "signin"}
-            onClick={() => handleItemClick("signin")}
+            to="/login"
+            name="login"
+            active={activeItem === "login"}
+            onClick={() => handleItemClick("login")}
           />
         </Menu.Menu>
       </Menu>
