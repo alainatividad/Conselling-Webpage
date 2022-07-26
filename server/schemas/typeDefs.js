@@ -78,6 +78,12 @@ const typeDefs = gql`
       firstName: String!
       lastName: String!
     ): AuthClient
+    createConsultant(
+      email: String!
+      password: String!
+      firstName: String!
+      lastName: String!
+    ): AuthConsultant
     # updateConsultantDetails(consultant: ConsultantInput!): Consultant
     addBooking(date: String!): Client
   }

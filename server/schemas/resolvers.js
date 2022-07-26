@@ -47,7 +47,7 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    loginClient: async (parent, { email, password }) => {
+    loginConsultant: async (parent, { email, password }) => {
       const user = await Consultant.findOne({ email });
 
       if (!user) {
@@ -74,6 +74,28 @@ const resolvers = {
       }
       const token = signToken(user);
       return { token, user };
+    },,
+    createConsultant: async (parent, { email, password, firstName, lastName }) => {
+      const user = await Consultant.create({
+        email,
+        password,
+        firstName,
+        lastName,
+      });
+      if (!user) {
+        throw new AuthenticationError("There is an issue logging in.");
+      }
+      const token = signToken(user);
+      return { token, user };
+    },
+    addBooking: async (parent, { scheduledDate }, context) => {
+      if (context.user) {
+        return Client.finOneAndReplace(
+          { _id: context.user._id },
+          { scheduleDate: scheduledDate },
+          { new: true, runValidators: true }
+        );
+      }
     },
     // updateConsultantDetails: async (parent, { consultant }, context) => {
     //   if (context.user) {
@@ -85,15 +107,6 @@ const resolvers = {
     //   }
     //   throw new AuthenticationError("You need to be logged in");
     // },
-    addBooking: async (parent, { scheduledDate }, context) => {
-      if (context.user) {
-        return Client.finOneAndReplace(
-          { _id: context.user._id },
-          { scheduleDate: scheduledDate },
-          { new: true, runValidators: true }
-        );
-      }
-    },
     // updateClientDetails: async (parent, { client }, context) => {
     //   if (context.user) {
     //     return Client.findOneAndUpdate(
