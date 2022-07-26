@@ -1,47 +1,85 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
-  type Books {
-    authors: [String]
-    description: String
-    bookId: String
-    image: String
-    link: String
-    title: String
+  type Availability {
+    _id: ID
+    consultantId: String
+    date: String
+    booked: Boolean
   }
 
-  type User {
+  type Client {
     _id: ID
-    username: String
     email: String
     password: String
-    bookCount: Int
-    savedBooks: [Books]
+    firstName: String
+    lastName: String
+    contactNumber: String
+    scheduleDate: String
+    consultant: String
+    concern: String
   }
 
-  type Auth {
+  type Consultant {
+    _id: ID
+    firstName: String
+    lastName: String
+    email: String
+    password: String
+    services: String
+    availability: [Availability]
+    client: [Client]
+  }
+
+  type AuthClient {
     token: ID!
-    user: User
+    user: Client
   }
 
-  input BookInput {
-    authors: [String]
-    description: String
-    bookId: String
-    image: String
-    link: String
-    title: String
+  type AuthConsultant {
+    token: ID!
+    user: Consultant
+  }
+
+  type ClientInput {
+    _id: ID
+    email: String
+    password: String
+    firstName: String
+    lastName: String
+    contactNumber: String
+    scheduleDate: String
+    consultant: String
+    concern: String
+  }
+
+  type ConsultantInput {
+    _id: ID
+    firstName: String
+    lastName: String
+    email: String
+    password: String
+    services: String
+    availability: String
+    client: [Client]
   }
 
   type Query {
-    me: User
+    meClient: Client
+    meConsultant: Consultant
   }
 
   type Mutation {
-    login(email: String!, password: String!): Auth
-    createUser(email: String!, password: String!, username: String!): Auth
-    saveBook(book: BookInput!): User
-    removeBook(bookId: String!): User
+    loginClient(email: String!, password: String!): AuthClient
+    loginConsultant(email: String!, password: String!): AuthConsultant
+    createClient(
+      email: String!
+      password: String!
+      firstName: String!
+      lastName: String!
+    ): AuthClient
+    # updateConsultantDetails(consultant: ConsultantInput!): Consultant
+    addBooking(date: String!): Client
   }
 `;
 
