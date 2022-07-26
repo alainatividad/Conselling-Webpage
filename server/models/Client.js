@@ -24,7 +24,6 @@ const clientSchema = new Schema({
   },
   contactNumber: {
     type: String,
-    required: true,
   },
   scheduleDate: {
     type: String,
