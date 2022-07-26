@@ -31,7 +31,7 @@ const consultantSchema = new Schema({
   },
   availability: {
     type: String,
-  }
+  },
   client: [clientSchema],
 });
 
