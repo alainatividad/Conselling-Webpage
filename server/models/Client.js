@@ -1,15 +1,7 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
 
-// import schema from Book.js
-// const bookSchema = require("./Book");
-
 const clientSchema = new Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-  },
   email: {
     type: String,
     required: true,
@@ -37,6 +29,12 @@ const clientSchema = new Schema({
   scheduleDate: {
     type: String,
   },
+  consultant: {
+    type: String,
+  },
+  concern: {
+    type: String,
+  },
 });
 
 // hash user password
@@ -55,5 +53,4 @@ clientSchema.methods.isCorrectPassword = async function (password) {
 };
 
 const Client = model("Client", clientSchema);
-
 module.exports = Client;
