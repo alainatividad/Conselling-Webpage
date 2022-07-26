@@ -74,8 +74,11 @@ const resolvers = {
       }
       const token = signToken(user);
       return { token, user };
-    },,
-    createConsultant: async (parent, { email, password, firstName, lastName }) => {
+    },
+    createConsultant: async (
+      parent,
+      { email, password, firstName, lastName }
+    ) => {
       const user = await Consultant.create({
         email,
         password,

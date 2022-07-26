@@ -28,7 +28,6 @@ const consultantSchema = new Schema({
   },
   services: {
     type: String,
-    required: true,
   },
   availability: [availabilitySchema],
   client: [clientSchema],
