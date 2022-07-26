@@ -2,7 +2,8 @@ const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
 
 // import schema from Book.js
-const clientSchema = require("./Client");
+const clientSchema = require("./Client").schema;
+const availabilitySchema = require("./Availability");
 
 const consultantSchema = new Schema({
   firstName: {
@@ -29,9 +30,7 @@ const consultantSchema = new Schema({
     type: String,
     required: true,
   },
-  availability: {
-    type: String,
-  },
+  availability: [availabilitySchema],
   client: [clientSchema],
 });
 
