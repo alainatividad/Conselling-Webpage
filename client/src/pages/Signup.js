@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
+import { useUserContext } from "../utils/UserContext";
+import { UPDATE_STATE } from "../utils/actions";
 import { CREATE_CLIENT } from "../utils/mutations";
 import Auth from "../utils/auth";
 import {
@@ -12,7 +14,10 @@ import {
   Segment,
 } from "semantic-ui-react";
 
-const LoginForm = () => {
+const SignupForm = () => {
+  const navigate = useNavigate();
+  // get user state
+  const [state, dispatch] = useUserContext();
   // set initial form state
   const [userFormData, setUserFormData] = useState({
     firstName: "",
@@ -20,15 +25,12 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
-  // set state for form validation
-  const [validated] = useState(false);
-  // set state for alert
-  const [showAlert, setShowAlert] = useState(false);
+  // // set state for alert
+  // const [showAlert, setShowAlert] = useState(false);
   const [addUser, { error, data }] = useMutation(CREATE_CLIENT);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    console.log("handleinputchange", name, value);
     setUserFormData({ ...userFormData, [name]: value });
   };
 
@@ -49,10 +51,12 @@ const LoginForm = () => {
         throw new Error("something went wrong!");
       }
 
+      // if signup successful, update userState and statusState
+      dispatch({ type: UPDATE_STATE, user: "client", status: true });
       Auth.login(data.createClient.token);
+      navigate("/profile");
     } catch (err) {
       console.error(err);
-      setShowAlert(true);
     }
 
     setUserFormData({
@@ -150,4 +154,4 @@ const LoginForm = () => {
     </>
   );
 };
-export default LoginForm;
+export default SignupForm;
