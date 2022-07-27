@@ -8,11 +8,9 @@ const resolvers = {
     meClient: async (parent, args, context) => {
       if (context.user) {
         const client = await Client.findOne({ _id: context.user._id });
-
         if (!client) {
           throw new AuthenticationError("No user with this email found.");
         }
-
         return client;
       }
       throw new AuthenticationError("You need to be logged in");
@@ -20,11 +18,9 @@ const resolvers = {
     meConsultant: async (parent, args, context) => {
       if (context.user) {
         const consultant = await Consultant.findOne({ _id: context.user._id });
-
         if (!consultant) {
           throw new AuthenticationError("No user with this email found.");
         }
-
         return consultant;
       }
       throw new AuthenticationError("You need to be logged in");
@@ -34,11 +30,9 @@ const resolvers = {
   Mutation: {
     loginClient: async (parent, { email, password }) => {
       const user = await Client.findOne({ email });
-
       if (!user) {
         throw new AuthenticationError("No user with this email found.");
       }
-
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
@@ -49,11 +43,9 @@ const resolvers = {
     },
     loginConsultant: async (parent, { email, password }) => {
       const user = await Consultant.findOne({ email });
-
       if (!user) {
         throw new AuthenticationError("No user with this email found.");
       }
-
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
