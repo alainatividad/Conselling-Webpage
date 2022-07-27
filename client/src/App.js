@@ -7,6 +7,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { UserProvider } from "./utils/UserContext";
 
 // import DateTimePicker from "react-datetime-picker";
 import "fomantic-ui-css/semantic.css";
@@ -16,6 +17,7 @@ import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -43,11 +45,11 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-      {/* Wrap page elements in Router component to keep track of location state */}
-      <Router>
-        <Navbar />
-        <Container>
-          <div className="container">
+      <UserProvider>
+        {/* Wrap page elements in Router component to keep track of location state */}
+        <Router>
+          <Navbar />
+          <Container>
             {/* Wrap Route elements in a Routes component */}
             <Routes>
               {/* Define routes using the Route component to render different page components at different paths */}
@@ -59,15 +61,16 @@ function App() {
                 element={<Profile />} 
               /> */}
               <Route path="/sign-up" element={<Signup />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="/login" element={<Login />} />
-              {/* <Route
+              <Route
                 path="*"
                 element={<h1 className="display-2">Wrong page!</h1>}
-              /> */}
+              />
             </Routes>
-          </div>
-        </Container>
-      </Router>
+          </Container>
+        </Router>
+      </UserProvider>
     </ApolloProvider>
   );
 }
