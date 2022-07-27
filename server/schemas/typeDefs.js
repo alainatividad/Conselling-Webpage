@@ -1,10 +1,12 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
+  scalar Date
+
   type Availability {
     _id: ID
     consultantId: String
-    date: String
+    date: Date
     booked: Boolean
   }
 
@@ -15,7 +17,7 @@ const typeDefs = gql`
     firstName: String
     lastName: String
     contactNumber: String
-    scheduleDate: String
+    scheduleDate: Date
     consultant: String
     concern: String
   }
@@ -48,7 +50,7 @@ const typeDefs = gql`
     firstName: String
     lastName: String
     contactNumber: String
-    scheduleDate: String
+    scheduleDate: Date
     consultant: String
     concern: String
   }
@@ -67,6 +69,7 @@ const typeDefs = gql`
   type Query {
     meClient: Client
     meConsultant: Consultant
+    availability: [Availability]
   }
 
   type Mutation {
@@ -85,7 +88,8 @@ const typeDefs = gql`
       lastName: String!
     ): AuthConsultant
     # updateConsultantDetails(consultant: ConsultantInput!): Consultant
-    addBooking(date: String!): Client
+    addBooking(_id: ID!): Client
+    addAvailability(date: Date!): Availability
   }
 `;
 

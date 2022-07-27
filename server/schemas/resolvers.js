@@ -1,8 +1,28 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { Client, Consultant } = require("../models");
+const { Client, Consultant, Availability } = require("../models");
 const { signToken } = require("../utils/auth");
+const { GraphQLScalarType, Kind } = require("graphql");
+
+// from https://www.apollographql.com/docs/apollo-server/schema/custom-scalars/
+const dateScalar = new GraphQLScalarType({
+  name: "Date",
+  description: "Date custom scalar type",
+  serialize(value) {
+    return value.getTime(); // Convert outgoing Date to integer for JSON
+  },
+  parseValue(value) {
+    return new Date(value); // Convert incoming integer to Date
+  },
+  parseLiteral(ast) {
+    if (ast.kind === Kind.INT) {
+      return new Date(parseInt(ast.value, 10)); // Convert hard-coded AST string to integer and then to Date
+    }
+    return null; // Invalid hard-coded value (not an integer)
+  },
+});
 
 const resolvers = {
+  Date: dateScalar,
   Query: {
     // query for getting own data
     meClient: async (parent, args, context) => {
@@ -24,6 +44,11 @@ const resolvers = {
         return consultant;
       }
       throw new AuthenticationError("You need to be logged in");
+    },
+    availability: async (parent, ars, content) => {
+      if (context.user) {
+        return await Availability.find({ booked: false });
+      }
     },
   },
 
@@ -83,13 +108,22 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    addBooking: async (parent, { scheduledDate }, context) => {
+    addBooking: async (parent, { date }, context) => {
       if (context.user) {
         return Client.finOneAndReplace(
           { _id: context.user._id },
-          { scheduleDate: scheduledDate },
+          { scheduleDate: date },
           { new: true, runValidators: true }
         );
+      }
+    },
+    addAvailability: async (parent, { date }, context) => {
+      if (context.user) {
+        console.log(date);
+        return Availability.create({
+          consultantId: context.user._id,
+          date: date,
+        });
       }
     },
     // updateConsultantDetails: async (parent, { consultant }, context) => {

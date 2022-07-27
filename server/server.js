@@ -1,5 +1,8 @@
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
+const {
+  ApolloServerPluginLandingPageLocalDefault,
+} = require("apollo-server-core");
 const path = require("path");
 const { authMiddleware } = require("./utils/auth");
 const { typeDefs, resolvers } = require("./schemas");
@@ -11,6 +14,7 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: authMiddleware,
+  plugins: [ApolloServerPluginLandingPageLocalDefault({ embed: true })],
 });
 
 app.use(express.urlencoded({ extended: true }));
