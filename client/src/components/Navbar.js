@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu } from "semantic-ui-react";
+import { Menu, Image, Divider } from "semantic-ui-react";
 import { useUserContext } from "../utils/UserContext";
 import Auth from "../utils/auth";
+// import header from "../assets/img/kamalayan-header-noborder.png";
 
 const AppNavbar = () => {
   // get user state
@@ -15,36 +16,42 @@ const AppNavbar = () => {
 
   return (
     <div>
-      <Menu pointing secondary>
-        <Menu.Item
-          as={Link}
-          to="/"
-          name="home"
-          active={activeItem === "home"}
-          onClick={() => handleItemClick("home")}
-        />
-        <Menu.Item
-          as={Link}
-          to="/about"
-          name="about"
-          active={activeItem === "about"}
-          onClick={() => handleItemClick("about")}
-        />
-        <Menu.Item
-          as={Link}
-          to="/services"
-          name="services"
-          active={activeItem === "services"}
-          onClick={() => handleItemClick("services")}
-        />
-        <Menu.Item
-          as={Link}
-          to="/contact-us"
-          name="contact us"
-          active={activeItem === "contact"}
-          onClick={() => handleItemClick("contact")}
-        />
-        <Menu.Menu position="right">
+      <Image
+        src={window.location.origin + "/img/kamalayan-header-noborder.png"}
+        size="large"
+        // fluid
+        centered
+      />
+      <Menu secondary stackable>
+        <Menu.Menu position="center">
+          <Menu.Item
+            as={Link}
+            to="/"
+            name="home"
+            active={activeItem === "home"}
+            onClick={() => handleItemClick("home")}
+          />
+          <Menu.Item
+            as={Link}
+            to="/about"
+            name="about"
+            active={activeItem === "about"}
+            onClick={() => handleItemClick("about")}
+          />
+          <Menu.Item
+            as={Link}
+            to="/services"
+            name="services"
+            active={activeItem === "services"}
+            onClick={() => handleItemClick("services")}
+          />
+          <Menu.Item
+            as={Link}
+            to="/contact-us"
+            name="contact us"
+            active={activeItem === "contact"}
+            onClick={() => handleItemClick("contact")}
+          />
           {/* if user is logged in show profile and logout */}
           {state.loggedIn ? (
             <>
@@ -77,6 +84,7 @@ const AppNavbar = () => {
           )}
         </Menu.Menu>
       </Menu>
+      <Divider section />
     </div>
   );
 };
