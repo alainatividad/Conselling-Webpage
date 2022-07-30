@@ -74,13 +74,9 @@ const SignupForm = () => {
           Success! You may now head <Link to="/">back to the homepage.</Link>
         </p>
       ) : (
-        <Grid
-          textAlign="center"
-          style={{ height: "100vh" }}
-          verticalAlign="middle"
-        >
+        <Grid textAlign="center" verticalAlign="middle">
           <Grid.Column style={{ maxWidth: 450 }}>
-            <Header as="h2" color="teal" textAlign="center" content="Sign Up" />
+            <Header as="h2" textAlign="center" content="Sign Up" />
             <Form onSubmit={handleFormSubmit}>
               <Segment stacked>
                 <Form.Group widths="equal">
@@ -142,7 +138,7 @@ const SignupForm = () => {
                   onChange={handleInputChange}
                 />
 
-                <Button color="teal" fluid size="large" content="Sign up" />
+                <Button fluid size="large" content="Sign up" />
               </Segment>
             </Form>
             <Message>
