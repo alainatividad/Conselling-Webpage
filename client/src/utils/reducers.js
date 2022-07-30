@@ -1,14 +1,19 @@
 import { useReducer } from "react";
-import { UPDATE_STATE } from "./actions";
+import { UPDATE_STATE, UPDATE_CONSULTANT } from "./actions";
 
 export const reducer = (state, action) => {
   switch (action.type) {
     case UPDATE_STATE:
-      console.log("action.payload", action.user);
       return {
         ...state,
         user: action.user,
         loggedIn: action.status,
+      };
+
+    case UPDATE_CONSULTANT:
+      return {
+        ...state,
+        selectedConsultant: action.payload,
       };
 
     default:

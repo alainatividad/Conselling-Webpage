@@ -9,6 +9,7 @@ const UserProvider = ({ value = [], ...props }) => {
   const [state, dispatch] = useUserReducer({
     user: "",
     loggedIn: false,
+    selectedConsultant: "",
   });
 
   return <Provider value={[state, dispatch]} {...props} />;

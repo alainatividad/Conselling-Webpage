@@ -3,11 +3,25 @@ const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   scalar Date
 
+  type Consultant {
+    _id: ID
+    firstName: String
+    lastName: String
+    email: String
+    password: String
+    description: String
+    role: String
+    services: String
+    availabilities: [Availability]
+    client: [Client]
+  }
+
   type Availability {
     _id: ID
     consultantId: String
-    date: Date
-    booked: Boolean
+    # date: Date
+    date: String
+    sched: [Sched]!
   }
 
   type Client {
@@ -17,20 +31,15 @@ const typeDefs = gql`
     firstName: String
     lastName: String
     contactNumber: String
-    scheduleDate: Date
+    scheduleDate: String
     consultant: String
     concern: String
   }
 
-  type Consultant {
+  type Sched {
     _id: ID
-    firstName: String
-    lastName: String
-    email: String
-    password: String
-    services: String
-    availability: [Availability]
-    client: [Client]
+    time: String
+    booked: Boolean
   }
 
   type AuthClient {
@@ -43,33 +52,36 @@ const typeDefs = gql`
     user: Consultant
   }
 
-  type ClientInput {
+  input ClientInput {
     _id: ID
     email: String
     password: String
     firstName: String
     lastName: String
     contactNumber: String
-    scheduleDate: Date
+    # scheduleDate: Date
+    scheduleDate: String
     consultant: String
     concern: String
   }
 
-  type ConsultantInput {
+  input ConsultantInput {
     _id: ID
     firstName: String
     lastName: String
     email: String
+    description: String
+    role: String
     password: String
     services: String
-    availability: String
-    client: [Client]
   }
 
   type Query {
     meClient: Client
     meConsultant: Consultant
-    availability: [Availability]
+    getAvailability(consultantId: String!): [Availability]
+    getAllAvailability: [Availability]
+    getConsultants: [Consultant]
   }
 
   type Mutation {
@@ -87,9 +99,10 @@ const typeDefs = gql`
       firstName: String!
       lastName: String!
     ): AuthConsultant
-    # updateConsultantDetails(consultant: ConsultantInput!): Consultant
-    addBooking(_id: ID!): Client
-    addAvailability(date: Date!): Availability
+    updateConsultantDetails(consultant: ConsultantInput!): Consultant
+    addBooking(consultantId: String!, scheduleDate: String!): Client
+    updateAvailability(consultantId: String!, time: String!): Availability
+    addClientToConsultant(consultantId: String!): Consultant
   }
 `;
 
