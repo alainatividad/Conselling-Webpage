@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useUserContext } from "../utils/UserContext";
-import { UPDATE_STATE } from "../utils/actions";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
+import { useUserContext } from "../utils/UserContext";
+import { UPDATE_STATE } from "../utils/actions";
 import { LOGIN_CLIENT, LOGIN_CONSULTANT } from "../utils/mutations";
 import Auth from "../utils/auth";
 import {
@@ -84,14 +84,13 @@ const Login = () => {
         divided
         stackable
         textAlign="center"
-        style={{ height: "100vh" }}
         verticalAlign="middle"
       >
         <Grid.Row>
-          <Grid.Column style={{ maxWidth: 450 }}>
+          {/*  style={{ maxWidth: 450 }} */}
+          <Grid.Column>
             <Header
               as="h2"
-              color="teal"
               textAlign="center"
               content="Client? Log-in to your account"
             />
@@ -117,7 +116,7 @@ const Login = () => {
                   type="password"
                 />
 
-                <Button color="teal" fluid size="large">
+                <Button fluid size="large">
                   Login
                 </Button>
               </Segment>
@@ -134,10 +133,9 @@ const Login = () => {
               New to us? <a href="/sign-up">Sign Up</a>
             </Message>
           </Grid.Column>
-          <Grid.Column style={{ maxWidth: 450 }}>
+          <Grid.Column>
             <Header
               as="h2"
-              color="teal"
               textAlign="center"
               content="Consultant? Log-in to your account"
             />
@@ -163,7 +161,7 @@ const Login = () => {
                   onChange={handleConsultantInputChange}
                 />
 
-                <Button color="teal" fluid size="large">
+                <Button fluid size="large">
                   Login
                 </Button>
               </Segment>
