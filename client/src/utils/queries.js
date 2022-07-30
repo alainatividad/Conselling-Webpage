@@ -87,26 +87,6 @@ export const GET_CONSULTANTS = gql`
       description
       role
       services
-      availabilities {
-        _id
-        consultantId
-        date
-        sched {
-          _id
-          time
-          booked
-        }
-      }
-      client {
-        _id
-        email
-        firstName
-        lastName
-        contactNumber
-        scheduleDate
-        consultant
-        concern
-      }
     }
   }
 `;

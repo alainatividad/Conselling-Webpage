@@ -61,9 +61,7 @@ const resolvers = {
       }
     },
     getConsultants: async (parent, args, context) => {
-      return await Consultant.find()
-        .populate("availabilities")
-        .populate("clients");
+      return await Consultant.find();
     },
   },
 
@@ -82,7 +80,9 @@ const resolvers = {
       return { token, user };
     },
     loginConsultant: async (parent, { email, password }) => {
-      const user = await Consultant.findOne({ email });
+      const user = await Consultant.findOne({ email })
+        .populate("availabilities")
+        .populate("clients");
       if (!user) {
         throw new AuthenticationError("No user with this email found.");
       }
