@@ -5,19 +5,18 @@ import {
   ApolloProvider,
   createHttpLink,
 } from "@apollo/client";
+import "fomantic-ui-css/semantic.css";
 import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { UserProvider } from "./utils/UserContext";
-
-// import DateTimePicker from "react-datetime-picker";
-import "fomantic-ui-css/semantic.css";
 import { Container } from "semantic-ui-react";
 
+import { UserProvider } from "./utils/UserContext";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import Footer from "./components/Footer";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -41,25 +40,17 @@ const client = new ApolloClient({
 });
 
 function App() {
-  // const [value, onChange] = useState(new Date());
-
   return (
     <ApolloProvider client={client}>
       <UserProvider>
         {/* Wrap page elements in Router component to keep track of location state */}
         <Router>
           <Navbar />
-          <Container>
+          <Container style={{ padding: "2em 0em" }}>
             {/* Wrap Route elements in a Routes component */}
             <Routes>
               {/* Define routes using the Route component to render different page components at different paths */}
-              {/* Define a default route that will render the Home component */}
               <Route path="/" element={<Home />} />
-              {/* Define a route that will take in variable data */}
-              {/* <Route 
-                path="/profiles/:profileId" 
-                element={<Profile />} 
-              /> */}
               <Route path="/sign-up" element={<Signup />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/login" element={<Login />} />
@@ -69,6 +60,7 @@ function App() {
               />
             </Routes>
           </Container>
+          <Footer />
         </Router>
       </UserProvider>
     </ApolloProvider>
