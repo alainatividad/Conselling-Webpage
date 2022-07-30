@@ -35,12 +35,6 @@ export const LOGIN_CLIENT = gql`
       user {
         _id
         email
-        firstName
-        lastName
-        contactNumber
-        scheduleDate
-        consultant
-        concern
       }
     }
   }
@@ -55,28 +49,6 @@ export const LOGIN_CONSULTANT = gql`
         firstName
         lastName
         email
-        description
-        services
-        role
-        availability {
-          _id
-          consultantId
-          date
-          sched {
-            time
-            booked
-          }
-        }
-        client {
-          _id
-          email
-          firstName
-          lastName
-          contactNumber
-          scheduleDate
-          consultant
-          concern
-        }
       }
     }
   }
@@ -117,14 +89,16 @@ export const UPDATE_BOOK_CONSULTANT = gql`
       firstName
       lastName
       email
+      password
       description
       role
       services
-      availability {
+      availabilities {
         _id
         consultantId
         date
         sched {
+          _id
           time
           booked
         }
@@ -132,6 +106,7 @@ export const UPDATE_BOOK_CONSULTANT = gql`
       client {
         _id
         email
+        password
         firstName
         lastName
         contactNumber
