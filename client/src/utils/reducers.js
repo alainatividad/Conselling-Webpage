@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { UPDATE_STATE, UPDATE_CONSULTANT } from "./actions";
+import { UPDATE_STATE, UPDATE_CONSULTANT, UPDATE_CURRPAGE } from "./actions";
 
 export const reducer = (state, action) => {
   switch (action.type) {
@@ -16,6 +16,11 @@ export const reducer = (state, action) => {
         selectedConsultant: action.payload,
       };
 
+    case UPDATE_CURRPAGE:
+      return {
+        ...state,
+        currentPage: action.payload,
+      };
     default:
       return state;
   }

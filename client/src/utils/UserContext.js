@@ -10,6 +10,7 @@ const UserProvider = ({ value = [], ...props }) => {
     user: "",
     loggedIn: false,
     selectedConsultant: "",
+    currentPage: "home",
   });
 
   return <Provider value={[state, dispatch]} {...props} />;

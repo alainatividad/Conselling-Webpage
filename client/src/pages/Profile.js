@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Container } from "semantic-ui-react";
 import { useQuery } from "@apollo/client";
 import { GET_ME_CLIENT, GET_ME_CONSULTANT } from "../utils/queries";
 import { useUserContext } from "../utils/UserContext";
+import { UPDATE_CURRPAGE } from "../utils/actions";
 import BookConsultantSelect from "../components/BookConsultantSelect";
 import ConsultantProfile from "../components/ConsultantProfile";
+import LoaderComp from "../components/LoaderComp";
+import ErrorMessage from "../components/ErrorMessage";
 
 const profile = () => {
   const style = {
@@ -14,17 +16,15 @@ const profile = () => {
     },
   };
   // get user state
-  const [state] = useUserContext();
+  const [state, dispatch] = useUserContext();
 
   if (!state.loggedIn) {
-    return (
-      <>
-        <h1>
-          <Link to="/login">log in</Link> to view page
-        </h1>
-      </>
-    );
+    return <ErrorMessage header="notLoggedIn" />;
   }
+
+  useEffect(() => {
+    dispatch({ type: UPDATE_CURRPAGE, payload: "profile" });
+  }, []);
 
   const { loading, error, data, refetch } =
     state.user === "client"
@@ -34,16 +34,12 @@ const profile = () => {
   useEffect(() => {
     refetch();
   }, [state.selectedConsultant]);
+
   if (loading) {
-    return <h2>LOADING...</h2>;
+    return <LoaderComp />;
   }
   if (error) {
-    return (
-      <>
-        <h2> {state.user}</h2>
-        <h2>Error! {error.message}</h2>
-      </>
-    );
+    return <ErrorMessage header="error" message={error.message} />;
   }
 
   if (data) {
@@ -74,13 +70,12 @@ const profile = () => {
     } else {
       // show consultant profile
       const userData = data.meConsultant;
-      console.log(userData);
       return (
         <div>
           <Container text style={style.margin}>
             <h2>Hi {userData.fullName}!</h2>
 
-            <ConsultantProfile clients={userData} />
+            <ConsultantProfile clients={userData.clients} />
           </Container>
         </div>
       );
