@@ -13,7 +13,10 @@ import {
 const Footer = () => (
   <Segment
     inverted
-    style={{ margin: "5em 0em 0em", padding: "5em 0em" }}
+    style={{
+      margin: "5em 0em 0em",
+      padding: "2em 0em",
+    }}
     vertical
   >
     <Container textAlign="center">

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { useUserContext } from "../utils/UserContext";
-import { UPDATE_STATE } from "../utils/actions";
+import { UPDATE_STATE, UPDATE_CURRPAGE } from "../utils/actions";
 import { LOGIN_CLIENT, LOGIN_CONSULTANT } from "../utils/mutations";
 import Auth from "../utils/auth";
 import {
@@ -18,6 +18,10 @@ const Login = () => {
   const navigate = useNavigate();
   // get user state
   const [state, dispatch] = useUserContext();
+
+  useEffect(() => {
+    dispatch({ type: UPDATE_CURRPAGE, payload: "login" });
+  }, []);
 
   const [clientFormData, setClientFormData] = useState({
     email: "",
