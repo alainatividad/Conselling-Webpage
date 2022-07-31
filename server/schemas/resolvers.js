@@ -123,7 +123,11 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    addBooking: async (parent, { consultantId, scheduleDate }, context) => {
+    addBooking: async (
+      parent,
+      { consultantId, scheduleDate, concern },
+      context
+    ) => {
       // update Availability, Client, and Consultant tables
       if (context.user) {
         const consultantSaved = await Consultant.findOneAndUpdate(
@@ -137,6 +141,7 @@ const resolvers = {
             {
               scheduleDate: scheduleDate,
               consultant: consultantSaved.fullName,
+              concern: concern,
             },
             { new: true, runValidators: true }
           );

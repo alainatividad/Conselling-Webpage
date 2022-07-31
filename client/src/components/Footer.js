@@ -19,14 +19,14 @@ const Footer = () => (
     <Container textAlign="center">
       <Grid columns={4} divided stackable inverted>
         <Grid.Row>
-          <Grid.Column centered>
+          <Grid.Column position="center">
             <Image
               src={window.location.origin + "/img/kamalayan-logo-ho.png"}
               size="small"
               centered
             />
           </Grid.Column>
-          <Grid.Column centered>
+          <Grid.Column position="center">
             <Header inverted as="h4" content="Group 2" />
             <List link inverted>
               <List.Item as="a">Link One</List.Item>
@@ -35,7 +35,7 @@ const Footer = () => (
               <List.Item as="a">Link Four</List.Item>
             </List>
           </Grid.Column>
-          <Grid.Column centered>
+          <Grid.Column position="center">
             <Header inverted as="h4" content="Group 3" />
             <List link inverted>
               <List.Item as="a">Link One</List.Item>
@@ -44,7 +44,7 @@ const Footer = () => (
               <List.Item as="a">Link Four</List.Item>
             </List>
           </Grid.Column>
-          <Grid.Column centered>
+          <Grid.Column position="center">
             <Header inverted as="h4" content="Footer Header" />
             <p>
               Extra space for a call to action inside the footer that could help
