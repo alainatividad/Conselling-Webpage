@@ -63,6 +63,11 @@ const resolvers = {
     getConsultants: async (parent, args, context) => {
       return await Consultant.find();
     },
+    getClient: async (parent, { clientId }, context) => {
+      if (context.user) {
+        return await Client.findOne({ _id: clientId });
+      }
+    },
   },
 
   Mutation: {

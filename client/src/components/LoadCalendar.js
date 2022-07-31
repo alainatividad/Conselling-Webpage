@@ -16,6 +16,7 @@ import { GET_AVAILABILITY } from "../utils/queries";
 import { ADD_BOOKING } from "../utils/mutations";
 import { useUserContext } from "../utils/UserContext";
 import LoaderComp from "./LoaderComp";
+import ErrorMessage from "./ErrorMessage";
 import "../assets/dist/Calendar.css";
 import "../assets/dist/DatePicker.css";
 function isSameDay(a, b) {
@@ -81,11 +82,7 @@ const LoadCalendar = (props) => {
     return <LoaderComp />;
   }
   if (error) {
-    return (
-      <>
-        <h2>Error! {error.message}</h2>
-      </>
-    );
+    return <ErrorMessage header="error" message={error.message} />;
   }
 
   if (data.getAvailability) {
