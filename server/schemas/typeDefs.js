@@ -7,13 +7,14 @@ const typeDefs = gql`
     _id: ID
     firstName: String
     lastName: String
+    fullName: String
     email: String
     password: String
     description: String
     role: String
     services: String
     availabilities: [Availability]
-    client: [Client]
+    clients: [Client]
   }
 
   type Availability {
@@ -29,6 +30,7 @@ const typeDefs = gql`
     email: String
     password: String
     firstName: String
+    fullName: String
     lastName: String
     contactNumber: String
     scheduleDate: String
@@ -100,7 +102,11 @@ const typeDefs = gql`
       lastName: String!
     ): AuthConsultant
     updateConsultantDetails(consultant: ConsultantInput!): Consultant
-    addBooking(consultantId: String!, scheduleDate: String!): Client
+    addBooking(
+      consultantId: String!
+      scheduleDate: String!
+      concern: String!
+    ): Client
     updateAvailability(consultantId: String!, time: String!): Availability
     addClientToConsultant(consultantId: String!): Consultant
   }

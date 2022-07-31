@@ -35,6 +35,7 @@ export const LOGIN_CLIENT = gql`
       user {
         _id
         email
+        fullName
       }
     }
   }
@@ -46,8 +47,7 @@ export const LOGIN_CONSULTANT = gql`
       token
       user {
         _id
-        firstName
-        lastName
+        fullName
         email
       }
     }
@@ -55,13 +55,20 @@ export const LOGIN_CONSULTANT = gql`
 `;
 
 export const ADD_BOOKING = gql`
-  mutation AddBooking($consultantId: String!, $scheduleDate: String!) {
-    addBooking(consultantId: $consultantId, scheduleDate: $scheduleDate) {
+  mutation AddBooking(
+    $consultantId: String!
+    $scheduleDate: String!
+    $concern: String!
+  ) {
+    addBooking(
+      consultantId: $consultantId
+      scheduleDate: $scheduleDate
+      concern: $concern
+    ) {
       _id
       email
       password
-      firstName
-      lastName
+      fullName
       contactNumber
       scheduleDate
       consultant
@@ -107,8 +114,7 @@ export const UPDATE_BOOK_CONSULTANT = gql`
         _id
         email
         password
-        firstName
-        lastName
+        fullName
         contactNumber
         scheduleDate
         consultant
