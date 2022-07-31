@@ -84,6 +84,7 @@ const typeDefs = gql`
     getAvailability(consultantId: String!): [Availability]
     getAllAvailability: [Availability]
     getConsultants: [Consultant]
+    getClient(clientId: String!): Client
   }
 
   type Mutation {

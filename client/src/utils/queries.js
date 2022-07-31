@@ -86,3 +86,19 @@ export const GET_CONSULTANTS = gql`
     }
   }
 `;
+
+export const GET_CLIENT = gql`
+  query getClient($clientId: String!) {
+    getClient(clientId: $clientId) {
+      _id
+      email
+      firstName
+      fullName
+      lastName
+      contactNumber
+      scheduleDate
+      consultant
+      concern
+    }
+  }
+`;
