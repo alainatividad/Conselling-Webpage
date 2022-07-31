@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { Container, Dropdown, Message, Button } from "semantic-ui-react";
+import {
+  Container,
+  Dropdown,
+  Message,
+  Button,
+  Form,
+  TextArea,
+} from "semantic-ui-react";
 
 import DatePicker from "react-date-picker";
 import { getISODay, differenceInCalendarDays } from "date-fns";
@@ -24,11 +31,18 @@ function unwindBy(arr, f) {
 }
 
 const LoadCalendar = (props) => {
+  const style = {
+    margin: "1em 0",
+  };
+
   // get user state
-  const [state, dispatch] = useUserContext();
+  const [state] = useUserContext();
+
   const [dateValue, onChange] = useState(new Date());
   const [time, setTime] = useState("");
   const [success, setSuccess] = useState(false);
+  const [clientText, setClientText] = useState("");
+
   const { loading, error, data, refetch } = useQuery(GET_AVAILABILITY, {
     variables: { id: state.selectedConsultant },
   });
@@ -38,43 +52,26 @@ const LoadCalendar = (props) => {
     refetch();
   }, [state.selectedConsultant, dateValue]);
 
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    if (name === "commentText") {
+      setClientText(value);
+    }
+  };
+
   const handleButtonClick = async () => {
     try {
-      // console.log(
-      //   "consultant:",
-      //   props.consultant,
-      //   "scheduleDate:",
-      //   time,
-      //   "date:",
-      //   dateValue
-      // );
-
       const { booking } = await addBooking({
         variables: {
           consultantId: state.selectedConsultant,
           scheduleDate: time,
+          concern: clientText,
         },
       });
       if (!booking) {
         throw new Error(errorBook);
       }
-      // const { Avail } = await updateAvailability({
-      //   variables: {
-      //     consultantId: state.selectedConsultant,
-      //     time,
-      //   },
-      // });
-      // if (!Avail) {
-      //   throw new Error(errorAvail);
-      // }
-      // const { consultantUpdate } = await addClientToConsultant({
-      //   variables: {
-      //     consultantId: state.selectedConsultant,
-      //   },
-      // });
-      // if (!consultantUpdate) {
-      //   throw new Error(errorConsultant);
-      // }
       setSuccess(true);
     } catch (err) {
       console.error(err);
@@ -92,11 +89,13 @@ const LoadCalendar = (props) => {
   }
 
   if (data.getAvailability) {
-    const datePickerDates = data.getAvailability.map((el) => el.date);
+    // const datePickerDates = data.getAvailability.map((el) => el.date);
 
     // move different timeslots to their own object
-    let unwindData = unwindBy(data.getAvailability, "sched");
-    unwindData = unwindData.filter((el) => el.sched.booked === false);
+    const unwindData = unwindBy(data.getAvailability, "sched").filter(
+      (el) => el.sched.booked === false
+    );
+
     //dropdown values
     const dates = unwindData.map((el) => ({
       text: new Date(el.sched.time).toLocaleString("en-GB", {
@@ -109,8 +108,8 @@ const LoadCalendar = (props) => {
       plain: new Date(el.date),
     }));
 
+    // filter dropdown values by selected date
     const filteredDates = dates.filter((el) => isSameDay(el.plain, dateValue));
-    // console.log(filteredDates);
 
     function tileDisabled({ date, view }) {
       // Disable tiles in month view only
@@ -119,27 +118,27 @@ const LoadCalendar = (props) => {
         return getISODay(date) === 3 || getISODay(date) === 7;
       }
     }
-    function tileContent({ date, view }) {
-      // Add class to tiles in month view only
-      if (view === "month") {
-        // Put an * for dates with schedules
-        if (datePickerDates.find((dDate) => isSameDay(dDate, date))) {
-          return "\n*";
-        }
-      }
-    }
+    // function tileContent({ date, view }) {
+    //   // Add class to tiles in month view only
+    //   if (view === "month") {
+    //     // Put an * for dates with schedules
+    //     if (datePickerDates.find((dDate) => isSameDay(dDate, date))) {
+    //       return "*";
+    //     }
+    //   }
+    // }
     return (
       <>
         <h3>Select date and time</h3>
 
         <Container stackable>
-          <p>
+          <div style={style}>
             <DatePicker
               onChange={onChange}
               value={dateValue}
               minDate={new Date()}
               tileDisabled={tileDisabled}
-              tileContent={tileContent}
+              // tileContent={tileContent}
               formatLongDate={(locale, date) =>
                 date.toLocaleDateString("en-GB", {
                   timezone: "Australia/Sydney",
@@ -159,25 +158,41 @@ const LoadCalendar = (props) => {
               selection
               value={time}
             />
-          </p>
+          </div>
           {filteredDates.length === 0 ? (
-            <Message
-              header="Please select another date"
-              content="Sorry, there is no available schedule for this date"
-            />
-          ) : null}
-          {time ? (
-            <h3>
-              You have selected{" "}
-              {new Date(time).toLocaleString("en-GB", {
-                timezone: "Australia/Sydney",
-              })}
-            </h3>
+            <div>
+              <Message
+                header="Please select another date"
+                content="Sorry, there is no available schedule for this date"
+              />
+            </div>
           ) : null}
           {time && dateValue ? (
-            <Button content="Book an Appointment" onClick={handleButtonClick} />
+            <Form style={style}>
+              <h4>
+                You have selected{" "}
+                {new Date(time).toLocaleString("en-GB", {
+                  timezone: "Australia/Sydney",
+                })}
+              </h4>
+              <h3>Primary concern?</h3>
+              <Form.Field
+                name="commentText"
+                placeholder="In a few words, explain your concern..."
+                value={clientText}
+                control={TextArea}
+                onChange={handleChange}
+              />
+              <Button
+                content="Book an Appointment"
+                onClick={handleButtonClick}
+                type="submit"
+              />
+            </Form>
           ) : (
-            <Button disabled>Book an Appointment</Button>
+            <div style={style}>
+              <Button disabled>Book an Appointment</Button>
+            </div>
           )}
           {success ? <Message content="Success!!" /> : null}
         </Container>
