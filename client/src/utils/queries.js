@@ -10,6 +10,16 @@ export const GET_ME_CLIENT = gql`
       scheduleDate
       consultant
       concern
+      birthday
+      concern
+      prevSched
+      address
+      familyHistory
+      relationshipStat
+      educationalBG
+      medHistory
+      significantEvent
+      trauma
     }
   }
 `;
@@ -83,6 +93,7 @@ export const GET_CONSULTANTS = gql`
       description
       role
       services
+      image
     }
   }
 `;
@@ -99,6 +110,18 @@ export const GET_CLIENT = gql`
       scheduleDate
       consultant
       concern
+      birthday
+      concern
+      prevSched
+      address
+      familyHistory
+      relationshipStat
+      educationalBG
+      medHistory
+      significantEvent
+      trauma
+      additionalNotes
+      soapNotes
     }
   }
 `;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Segment, Dropdown } from "semantic-ui-react";
+import { Container, Segment, Dropdown, Image, Card } from "semantic-ui-react";
 import { useQuery } from "@apollo/client";
 import { GET_CONSULTANTS } from "../utils/queries";
 import { useUserContext } from "../utils/UserContext";
@@ -12,10 +12,13 @@ const BookConsultantSelect = () => {
   const [state, dispatch] = useUserContext();
   const [consultant, setConsultant] = useState("");
   const { loading, error, data } = useQuery(GET_CONSULTANTS);
-  const [desc, setDesc] = useState("");
-  const [role, setRole] = useState("");
-  const [services, setServices] = useState("");
-  const [name, setName] = useState("");
+  const [consultantDetails, setConsultantDetails] = useState({
+    desc: "",
+    role: "",
+    services: "",
+    name: "",
+    image: "",
+  });
 
   if (loading) {
     return <LoaderComp />;
@@ -37,15 +40,23 @@ const BookConsultantSelect = () => {
     desc: `${consultant.description}`,
     role: `${consultant.role}`,
     services: `${consultant.services}`,
+    imagePath: `${consultant.image}`,
   }));
 
   function handleDropdown(e, data) {
     setConsultant(data.value);
     dispatch({ type: UPDATE_CONSULTANT, payload: data.value });
-    setDesc(data.options.find((el) => el.value === data.value).desc);
-    setName(data.options.find((el) => el.value === data.value).text);
-    setRole(data.options.find((el) => el.value === data.value).role);
-    setServices(data.options.find((el) => el.value === data.value).services);
+    setConsultantDetails({
+      desc: data.options.find((el) => el.value === data.value).desc,
+      name: data.options.find((el) => el.value === data.value).text,
+      role: data.options.find((el) => el.value === data.value).role,
+      image: data.options.find((el) => el.value === data.value).imagePath,
+      services: data.options.find((el) => el.value === data.value).services,
+    });
+    // setDesc(data.options.find((el) => el.value === data.value).desc);
+    // setName(    data.options.find((el) => el.value === data.value).text);
+    // setRole(    data.options.find((el) => el.value === data.value).role);
+    // setServices(data.options.find((el) => el.value === data.value).services);
   }
 
   return (
@@ -60,14 +71,23 @@ const BookConsultantSelect = () => {
           placeholder="Choose a consultant"
           selection
         />
-        {desc ? (
+        {consultantDetails.desc ? (
           <Segment secondary>
-            <p>{name}</p>
-            {role}
+            <Card centered>
+              <Image
+                src={`/images/${consultantDetails.image}`}
+                size="small"
+                wrapped
+                ui={false}
+              />
+              <Card.Content>
+                <Card.Header>{consultantDetails.name}</Card.Header>
+                <Card.Meta>{consultantDetails.role}</Card.Meta>
+              </Card.Content>
+            </Card>
+            <p>{consultantDetails.desc}</p>
 
-            <p>{desc}</p>
-
-            <p>{services}</p>
+            <p>{consultantDetails.services}</p>
           </Segment>
         ) : null}
         {consultant ? <LoadCalendar consultant={consultant} /> : null}

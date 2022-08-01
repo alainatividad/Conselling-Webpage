@@ -32,6 +32,9 @@ const consultantSchema = new Schema(
     services: {
       type: String,
     },
+    image: {
+      type: String,
+    },
     availabilities: [
       {
         type: Schema.Types.ObjectId,

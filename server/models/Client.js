@@ -23,16 +23,49 @@ const clientSchema = new Schema(
       required: true,
       unique: true,
     },
+    birthday: {
+      type: String,
+    },
     contactNumber: {
       type: String,
     },
     scheduleDate: {
       type: String,
     },
+    prevSched: {
+      type: String,
+    },
     consultant: {
       type: String,
     },
     concern: {
+      type: String,
+    },
+    address: {
+      type: String,
+    },
+    familyHistory: {
+      type: String,
+    },
+    relationshipStat: {
+      type: String,
+    },
+    educationalBG: {
+      type: String,
+    },
+    medHistory: {
+      type: String,
+    },
+    significantEvent: {
+      type: String,
+    },
+    trauma: {
+      type: String,
+    },
+    additionalNotes: {
+      type: String,
+    },
+    soapNotes: {
       type: String,
     },
   },
