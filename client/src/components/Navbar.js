@@ -16,7 +16,8 @@ const AppNavbar = () => {
   };
 
   return (
-    <Sticky context={contextRef} bottomOffset={0}>
+    // <Sticky context={contextRef} bottomOffset={0}>
+    <>
       <Image
         src={"/images/kamalayan-header-noborder.png"}
         size="large"
@@ -86,7 +87,8 @@ const AppNavbar = () => {
         </Menu.Menu>
       </Menu>
       <Divider section />
-    </Sticky>
+    </>
+    // </Sticky>
   );
 };
 

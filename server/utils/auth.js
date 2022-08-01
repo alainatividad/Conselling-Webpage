@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 // set token secret and expiration date
-const secret = process.env.JWT_TOKEN;
+const secret = process.env.REACT_APP_JWT_TOKEN;
 const expiration = "2h";
 
 module.exports = {
