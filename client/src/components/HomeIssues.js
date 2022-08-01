@@ -1,96 +1,69 @@
 import React from "react";
-import { Header, Image, Card } from "semantic-ui-react";
-
+import { Image, Card } from "semantic-ui-react";
+const issues = [
+  {
+    image: "/images/home-anger.jpg",
+    issue: "Anger",
+    key: "Anger",
+  },
+  {
+    image: "/images/home-depression.jpg",
+    issue: "Depression",
+    key: "Depression",
+  },
+  {
+    image: "/images/home-anxiety.jpg",
+    issue: "Anxiety",
+    key: "Anxiety",
+  },
+  {
+    image: "/images/home-alcohol.jpg",
+    issue: "Alcohol and Drug Abuse",
+    key: "Alcohol and Drug Abuse",
+  },
+  {
+    image: "/images/home-trauma.jpg",
+    issue: "Trauma",
+    key: "Trauma",
+  },
+  {
+    image: "/images/home-grief.jpg",
+    issue: "Grief",
+    key: "Grief",
+  },
+  {
+    image: "/images/home-relationship.jpg",
+    issue: "Relationship Issues",
+    key: "Relationship Issues",
+  },
+  {
+    image: "/images/home-family.jpg",
+    issue: "Family Issues",
+    key: "Family Issues",
+  },
+  {
+    image: "/images/home-selfesteem.jpg",
+    issue: "Self-esteem",
+    key: "Self-esteem",
+  },
+  {
+    image: "/images/home-social.jpg",
+    issue: "Social Skills",
+    key: "Social Skills",
+  },
+];
 const HomeIssues = () => {
-  const style = {
-    h1: {
-      margin: "2em",
-    },
-    h2: {
-      margin: "4em 0em 2em",
-    },
-    h3: {
-      marginTop: "2em",
-      padding: "2em 0em",
-    },
-    last: {
-      marginBottom: "300px",
-    },
-  };
   return (
     <>
-      <Header
-        as="h1"
-        content="Common Issues dealt in therapy"
-        textAlign="center"
-        style={style.h1}
-      />
       <Card.Group centered>
-        <Card>
-          <Image wrapped ui={false} fluid src={"/images/home-anger.jpg"} />
-          <Card.Content>
-            <Card.Header textAlign="center">Anger</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card>
-          <Image wrapped ui={false} fluid src={"/images/home-depression.jpg"} />
-          <Card.Content>
-            <Card.Header textAlign="center">Depression</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card>
-          <Image wrapped ui={false} fluid src={"/images/home-anxiety.jpg"} />
-          <Card.Content>
-            <Card.Header textAlign="center">Anxiety</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card>
-          <Image wrapped ui={false} fluid src={"/images/home-alcohol.jpg"} />
-          <Card.Content>
-            <Card.Header textAlign="center">Alcohol and Drug Abuse</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card>
-          <Image wrapped ui={false} fluid src={"/images/home-trauma.jpg"} />
-          <Card.Content>
-            <Card.Header textAlign="center">Trauma</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card>
-          <Image wrapped ui={false} fluid src={"/images/home-grief.jpg"} />
-          <Card.Content>
-            <Card.Header textAlign="center">Grief</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card>
-          <Image
-            wrapped
-            ui={false}
-            fluid
-            src={"/images/home-relationship.jpg"}
-          />
-          <Card.Content>
-            <Card.Header textAlign="center">Relationship Issues</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card>
-          <Image wrapped ui={false} fluid src={"/images/home-family.jpg"} />
-          <Card.Content>
-            <Card.Header textAlign="center">Family Issues</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card>
-          <Image wrapped ui={false} fluid src={"/images/home-selfesteem.jpg"} />
-          <Card.Content>
-            <Card.Header textAlign="center">Self-esteem</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card>
-          <Image wrapped ui={false} fluid src={"/images/home-social.jpg"} />
-          <Card.Content>
-            <Card.Header textAlign="center">Social Skills</Card.Header>
-          </Card.Content>
-        </Card>
+        {issues.map((issue) => (
+          <Card key={issue.key}>
+            <Image wrapped ui={false} fluid src={issue.image} />
+            <Card.Content>
+              <Card.Header textAlign="center">{issue.issue}</Card.Header>
+            </Card.Content>
+          </Card>
+        ))}
       </Card.Group>
     </>
   );
