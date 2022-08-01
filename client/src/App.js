@@ -12,11 +12,12 @@ import { Container } from "semantic-ui-react";
 
 import { UserProvider } from "./utils/UserContext";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
+import About from "./pages/About";
 import Profile from "./pages/Profile";
-import Footer from "./components/Footer";
 import ClientDetail from "./pages/ClientDetail";
 import ProfileDetail from "./pages/ProfileDetail";
 
@@ -54,8 +55,9 @@ function App() {
               {/* Define routes using the Route component to render different page components at different paths */}
               <Route path="/" element={<Home />} />
               <Route path="/sign-up" element={<Signup />} />
-              <Route path="/profile" element={<Profile />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="/profile/:id" element={<ProfileDetail />} />
               <Route path="/profile/client/:id" element={<ClientDetail />} />
               <Route
