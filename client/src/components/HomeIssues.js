@@ -27,67 +27,37 @@ const HomeIssues = () => {
       />
       <Card.Group centered>
         <Card>
-          <Image
-            wrapped
-            ui={false}
-            fluid
-            src={window.location.origin + "/img/home-anger.jpg"}
-          />
+          <Image wrapped ui={false} fluid src={"/images/home-anger.jpg"} />
           <Card.Content>
             <Card.Header textAlign="center">Anger</Card.Header>
           </Card.Content>
         </Card>
         <Card>
-          <Image
-            wrapped
-            ui={false}
-            fluid
-            src={window.location.origin + "/img/home-depression.jpg"}
-          />
+          <Image wrapped ui={false} fluid src={"/images/home-depression.jpg"} />
           <Card.Content>
             <Card.Header textAlign="center">Depression</Card.Header>
           </Card.Content>
         </Card>
         <Card>
-          <Image
-            wrapped
-            ui={false}
-            fluid
-            src={window.location.origin + "/img/home-anxiety.jpg"}
-          />
+          <Image wrapped ui={false} fluid src={"/images/home-anxiety.jpg"} />
           <Card.Content>
             <Card.Header textAlign="center">Anxiety</Card.Header>
           </Card.Content>
         </Card>
         <Card>
-          <Image
-            wrapped
-            ui={false}
-            fluid
-            src={window.location.origin + "/img/home-alcohol.jpg"}
-          />
+          <Image wrapped ui={false} fluid src={"/images/home-alcohol.jpg"} />
           <Card.Content>
             <Card.Header textAlign="center">Alcohol and Drug Abuse</Card.Header>
           </Card.Content>
         </Card>
         <Card>
-          <Image
-            wrapped
-            ui={false}
-            fluid
-            src={window.location.origin + "/img/home-trauma.jpg"}
-          />
+          <Image wrapped ui={false} fluid src={"/images/home-trauma.jpg"} />
           <Card.Content>
             <Card.Header textAlign="center">Trauma</Card.Header>
           </Card.Content>
         </Card>
         <Card>
-          <Image
-            wrapped
-            ui={false}
-            fluid
-            src={window.location.origin + "/img/home-grief.jpg"}
-          />
+          <Image wrapped ui={false} fluid src={"/images/home-grief.jpg"} />
           <Card.Content>
             <Card.Header textAlign="center">Grief</Card.Header>
           </Card.Content>
@@ -97,41 +67,26 @@ const HomeIssues = () => {
             wrapped
             ui={false}
             fluid
-            src={window.location.origin + "/img/home-relationship.jpg"}
+            src={"/images/home-relationship.jpg"}
           />
           <Card.Content>
             <Card.Header textAlign="center">Relationship Issues</Card.Header>
           </Card.Content>
         </Card>
         <Card>
-          <Image
-            wrapped
-            ui={false}
-            fluid
-            src={window.location.origin + "/img/home-family.jpg"}
-          />
+          <Image wrapped ui={false} fluid src={"/images/home-family.jpg"} />
           <Card.Content>
             <Card.Header textAlign="center">Family Issues</Card.Header>
           </Card.Content>
         </Card>
         <Card>
-          <Image
-            wrapped
-            ui={false}
-            fluid
-            src={window.location.origin + "/img/home-selfesteem.jpg"}
-          />
+          <Image wrapped ui={false} fluid src={"/images/home-selfesteem.jpg"} />
           <Card.Content>
             <Card.Header textAlign="center">Self-esteem</Card.Header>
           </Card.Content>
         </Card>
         <Card>
-          <Image
-            wrapped
-            ui={false}
-            fluid
-            src={window.location.origin + "/img/home-social.jpg"}
-          />
+          <Image wrapped ui={false} fluid src={"/images/home-social.jpg"} />
           <Card.Content>
             <Card.Header textAlign="center">Social Skills</Card.Header>
           </Card.Content>

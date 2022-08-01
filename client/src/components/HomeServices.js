@@ -31,30 +31,20 @@ const HomeServices = () => {
             wrapped
             ui={false}
             fluid
-            src={window.location.origin + "/img/home-individual.jpeg"}
+            src={"/images/home-individual.jpeg"}
           />
           <Card.Content>
             <Card.Header textAlign="center">Individual Therapy</Card.Header>
           </Card.Content>
         </Card>
         <Card>
-          <Image
-            wrapped
-            ui={false}
-            fluid
-            src={window.location.origin + "/img/home-group.jpeg"}
-          />
+          <Image wrapped ui={false} fluid src={"/images/home-group.jpeg"} />
           <Card.Content>
             <Card.Header textAlign="center">Group Therapy</Card.Header>
           </Card.Content>
         </Card>
         <Card>
-          <Image
-            wrapped
-            ui={false}
-            fluid
-            src={window.location.origin + "/img/home-socskills.jpeg"}
-          />
+          <Image wrapped ui={false} fluid src={"/images/home-socskills.jpeg"} />
           <Card.Content>
             <Card.Header textAlign="center">Social Skills Group</Card.Header>
           </Card.Content>
@@ -64,7 +54,7 @@ const HomeServices = () => {
             wrapped
             ui={false}
             fluid
-            src={window.location.origin + "/img/home-familytherapy.jpeg"}
+            src={"/images/home-familytherapy.jpeg"}
           />
           <Card.Content>
             <Card.Header textAlign="center">Family Therapy</Card.Header>
@@ -75,7 +65,7 @@ const HomeServices = () => {
             wrapped
             ui={false}
             fluid
-            src={window.location.origin + "/img/home-couplestherapy.jpeg"}
+            src={"/images/home-couplestherapy.jpeg"}
           />
           <Card.Content>
             <Card.Header textAlign="center">Couples Therapy</Card.Header>
@@ -86,7 +76,7 @@ const HomeServices = () => {
             wrapped
             ui={false}
             fluid
-            src={window.location.origin + "/img/home-personaldev.jpeg"}
+            src={"/images/home-personaldev.jpeg"}
           />
           <Card.Content>
             <Card.Header textAlign="center">

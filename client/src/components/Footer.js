@@ -24,7 +24,7 @@ const Footer = () => (
         <Grid.Row>
           <Grid.Column position="center">
             <Image
-              src={window.location.origin + "/img/kamalayan-logo-ho.png"}
+              src={"/images/kamalayan-logo-ho.png"}
               size="small"
               centered
             />
