@@ -78,6 +78,7 @@ const LoadCalendar = (props) => {
       console.error(err);
     }
   };
+
   if (loading) {
     return <LoaderComp />;
   }
@@ -191,7 +192,7 @@ const LoadCalendar = (props) => {
               <Button disabled>Book an Appointment</Button>
             </div>
           )}
-          {success ? <Message content="Success!!" /> : null}
+          {success && <Message content="Success!!" />}
         </Container>
       </>
     );

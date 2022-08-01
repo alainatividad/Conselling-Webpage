@@ -1,8 +1,6 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
-  scalar Date
-
   type Consultant {
     _id: ID
     firstName: String
@@ -13,6 +11,7 @@ const typeDefs = gql`
     description: String
     role: String
     services: String
+    image: String
     availabilities: [Availability]
     clients: [Client]
   }
@@ -20,7 +19,6 @@ const typeDefs = gql`
   type Availability {
     _id: ID
     consultantId: String
-    # date: Date
     date: String
     sched: [Sched]!
   }
@@ -33,9 +31,20 @@ const typeDefs = gql`
     fullName: String
     lastName: String
     contactNumber: String
+    birthday: String
     scheduleDate: String
     consultant: String
     concern: String
+    prevSched: String
+    address: String
+    familyHistory: String
+    relationshipStat: String
+    educationalBG: String
+    medHistory: String
+    significantEvent: String
+    trauma: String
+    additionalNotes: String
+    soapNotes: String
   }
 
   type Sched {
@@ -61,10 +70,20 @@ const typeDefs = gql`
     firstName: String
     lastName: String
     contactNumber: String
-    # scheduleDate: Date
     scheduleDate: String
     consultant: String
+    birthday: String
     concern: String
+    prevSched: String
+    address: String
+    familyHistory: String
+    relationshipStat: String
+    educationalBG: String
+    medHistory: String
+    significantEvent: String
+    trauma: String
+    additionalNotes: String
+    soapNotes: String
   }
 
   input ConsultantInput {
@@ -102,14 +121,15 @@ const typeDefs = gql`
       firstName: String!
       lastName: String!
     ): AuthConsultant
-    updateConsultantDetails(consultant: ConsultantInput!): Consultant
     addBooking(
       consultantId: String!
       scheduleDate: String!
       concern: String!
     ): Client
-    updateAvailability(consultantId: String!, time: String!): Availability
-    addClientToConsultant(consultantId: String!): Consultant
+    updateConsultantDetails(consultant: ConsultantInput!): Consultant
+    updateClientDetails(clientId: String!, client: ClientInput!): Client
+    # updateAvailability(consultantId: String!, time: String!): Availability
+    # addClientToConsultant(consultantId: String!): Consultant
   }
 `;
 

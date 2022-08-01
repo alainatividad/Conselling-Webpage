@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
-import { Menu, Image, Divider } from "semantic-ui-react";
+import { Menu, Image, Divider, Sticky } from "semantic-ui-react";
 import { useUserContext } from "../utils/UserContext";
 import { UPDATE_CURRPAGE } from "../utils/actions";
 import Auth from "../utils/auth";
@@ -9,15 +9,16 @@ import Auth from "../utils/auth";
 const AppNavbar = () => {
   // get user state
   const [state, dispatch] = useUserContext();
+  const contextRef = useRef();
 
   const handleItemClick = async (name) => {
     dispatch({ type: UPDATE_CURRPAGE, payload: name });
   };
 
   return (
-    <>
+    <Sticky context={contextRef} bottomOffset={0}>
       <Image
-        src={window.location.origin + "/img/kamalayan-header-noborder.png"}
+        src={"/images/kamalayan-header-noborder.png"}
         size="large"
         // fluid
         centered
@@ -85,7 +86,7 @@ const AppNavbar = () => {
         </Menu.Menu>
       </Menu>
       <Divider section />
-    </>
+    </Sticky>
   );
 };
 

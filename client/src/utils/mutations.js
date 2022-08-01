@@ -76,53 +76,33 @@ export const ADD_BOOKING = gql`
     }
   }
 `;
-export const UPDATE_AVAILABILITY = gql`
-  mutation UpdateAvailability($consultantId: String!, $time: String!) {
-    updateAvailability(consultantId: $consultantId, time: $time) {
+
+export const UPDATE_CLIENT = gql`
+  mutation Mutation($clientId: String!, $client: ClientInput!) {
+    updateClientDetails(clientId: $clientId, client: $client) {
       _id
-      consultantId
-      date
-      sched {
-        time
-        booked
-      }
-    }
-  }
-`;
-export const UPDATE_BOOK_CONSULTANT = gql`
-  mutation UpdateAvailability($consultantId: String!) {
-    addClientToConsultant(consultantId: $consultantId) {
-      _id
-      firstName
-      lastName
       email
       password
-      description
-      role
-      services
-      availabilities {
-        _id
-        consultantId
-        date
-        sched {
-          _id
-          time
-          booked
-        }
-      }
-      client {
-        _id
-        email
-        password
-        fullName
-        contactNumber
-        scheduleDate
-        consultant
-        concern
-      }
+      firstName
+      fullName
+      lastName
+      contactNumber
+      birthday
+      scheduleDate
+      consultant
+      concern
+      prevSched
+      address
+      familyHistory
+      relationshipStat
+      educationalBG
+      medHistory
+      significantEvent
+      trauma
+      additionalNotes
+      soapNotes
     }
   }
 `;
-// export const LOGIN_CLIENT = gql``;
 // export const LOGIN_CLIENT = gql``;
 // export const LOGIN_CLIENT = gql``;

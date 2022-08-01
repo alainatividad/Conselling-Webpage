@@ -1,28 +1,8 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { Client, Consultant, Availability } = require("../models");
 const { signToken } = require("../utils/auth");
-const { GraphQLScalarType, Kind } = require("graphql");
-
-// from https://www.apollographql.com/docs/apollo-server/schema/custom-scalars/
-const dateScalar = new GraphQLScalarType({
-  name: "Date",
-  description: "Date custom scalar type",
-  serialize(value) {
-    return value.getTime(); // Convert outgoing Date to integer for JSON
-  },
-  parseValue(value) {
-    return new Date(value); // Convert incoming integer to Date
-  },
-  parseLiteral(ast) {
-    if (ast.kind === Kind.INT) {
-      return new Date(parseInt(ast.value, 10)); // Convert hard-coded AST string to integer and then to Date
-    }
-    return null; // Invalid hard-coded value (not an integer)
-  },
-});
 
 const resolvers = {
-  Date: dateScalar,
   Query: {
     // query for getting own data
     meClient: async (parent, args, context) => {
@@ -165,58 +145,26 @@ const resolvers = {
         }
       }
     },
-    updateAvailability: async (parent, { consultantId, time }, context) => {
-      if (context.user) {
-        // console.log(date);
-        return Availability.findOneAndUpdate(
-          {
-            consultantId: consultantId,
-            "sched.time": time,
-          },
-          { $set: { "sched.$.booked": true } },
-          { new: true, runValidators: true }
-        );
-      }
-    },
-    addClientToConsultant: async (parent, { consultantId }, context) => {
-      if (context.user) {
-        return Consultant.findOneAndUpdate(
-          { _id: consultantId },
-          { $addToSet: { client: context.user._id } },
-          { new: true, runValidators: true }
-        );
-      }
-      throw new AuthenticationError("You need to be logged in");
-    },
     updateConsultantDetails: async (parent, { consultantInput }, context) => {
       if (context.user) {
         return Consultant.findOneAndUpdate(
           { _id: context.user._id },
-          { $set: { "consultant.$": { consultantInput } } },
+          { $set: { consultantInput } },
           { new: true, runValidators: true }
         );
       }
       throw new AuthenticationError("You need to be logged in");
     },
-    // updateAvailability: async (parent, { date }, context) => {
-    //   if (context.user) {
-    //     console.log(date);
-    //     return Availability.create({
-    //       consultantId: context.user._id,
-    //       date: date,
-    //     });
-    //   }
-    // },
-    // updateClientDetails: async (parent, { client }, context) => {
-    //   if (context.user) {
-    //     return Client.findOneAndUpdate(
-    //       { _id: context.user._id },
-    //       { $pull: { savedBooks: { bookId: bookId } } },
-    //       { new: true, runValidators: true }
-    //     );
-    //   }
-    //   throw new AuthenticationError("You need to be logged in");
-    // },
+    updateClientDetails: async (parent, { clientId, clientInput }, context) => {
+      if (context.user) {
+        return Client.findOneAndUpdate(
+          { _id: clientId },
+          { $set: { ...clientInput } },
+          { new: true, runValidators: true }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in");
+    },
   },
 };
 

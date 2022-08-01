@@ -7,7 +7,6 @@ const availabilitySchema = new Schema({
   date: {
     // type: Date,
     type: String,
-    required: true,
   },
   sched: [
     {

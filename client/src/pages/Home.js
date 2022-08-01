@@ -51,7 +51,7 @@ const Home = () => {
           </p>
         </Grid.Column>
         <Grid.Column>
-          <Image src={window.location.origin + "/img/home-welcome.jpg"} fluid />
+          <Image src={"/images/home-welcome.jpg"} fluid />
         </Grid.Column>
       </Grid>
       <HomeIssues />

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Container } from "semantic-ui-react";
 import { useQuery } from "@apollo/client";
 import { GET_ME_CLIENT, GET_ME_CONSULTANT } from "../utils/queries";
@@ -62,6 +63,9 @@ const profile = () => {
                     timezone: "Australia/Sydney",
                   })}
                 </h3>
+                <Link to={`/profile/${userData._id}`}>
+                  <button>Edit details</button>
+                </Link>
               </>
             )}
           </Container>
