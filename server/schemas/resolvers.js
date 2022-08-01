@@ -155,11 +155,11 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in");
     },
-    updateClientDetails: async (parent, { clientId, clientInput }, context) => {
+    updateClientDetails: async (parent, { clientId, client }, context) => {
       if (context.user) {
         return Client.findOneAndUpdate(
           { _id: clientId },
-          { $set: { ...clientInput } },
+          { $set: { ...client } },
           { new: true, runValidators: true }
         );
       }
