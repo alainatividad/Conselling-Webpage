@@ -1,90 +1,50 @@
 import React from "react";
-import { Header, Image, Card } from "semantic-ui-react";
-
+import { Header, Image, Grid } from "semantic-ui-react";
+const services = [
+  {
+    service: "Group Therapy",
+    image: "/images/home-group.jpeg",
+    key: 1,
+  },
+  {
+    service: "Individual Therapy",
+    image: "/images/home-individual.jpeg",
+    key: 2,
+  },
+  {
+    service: "Social Skills Group",
+    image: "/images/home-socskills.jpeg",
+    key: 3,
+  },
+  {
+    service: "Family Therapy",
+    image: "/images/home-familytherapy.jpeg",
+    key: 4,
+  },
+  {
+    service: "Couples Therapy",
+    image: "/images/home-couplestherapy.jpeg",
+    key: 5,
+  },
+  {
+    service: "Personal Development Workshop",
+    image: "/images/home-personaldev.jpeg",
+    key: 6,
+  },
+];
 const HomeServices = () => {
-  const style = {
-    h1: {
-      margin: "2em",
-    },
-    h2: {
-      margin: "4em 0em 2em",
-    },
-    h3: {
-      marginTop: "2em",
-      padding: "2em 0em",
-    },
-    last: {
-      marginBottom: "300px",
-    },
-  };
   return (
     <>
-      <Header
-        as="h1"
-        content="Our Services"
-        textAlign="center"
-        style={style.h1}
-      />
-      <Card.Group centered itemsPerRow={3}>
-        <Card>
-          <Image
-            wrapped
-            ui={false}
-            fluid
-            src={"/images/home-individual.jpeg"}
-          />
-          <Card.Content>
-            <Card.Header textAlign="center">Individual Therapy</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card>
-          <Image wrapped ui={false} fluid src={"/images/home-group.jpeg"} />
-          <Card.Content>
-            <Card.Header textAlign="center">Group Therapy</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card>
-          <Image wrapped ui={false} fluid src={"/images/home-socskills.jpeg"} />
-          <Card.Content>
-            <Card.Header textAlign="center">Social Skills Group</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card>
-          <Image
-            wrapped
-            ui={false}
-            fluid
-            src={"/images/home-familytherapy.jpeg"}
-          />
-          <Card.Content>
-            <Card.Header textAlign="center">Family Therapy</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card>
-          <Image
-            wrapped
-            ui={false}
-            fluid
-            src={"/images/home-couplestherapy.jpeg"}
-          />
-          <Card.Content>
-            <Card.Header textAlign="center">Couples Therapy</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card>
-          <Image
-            wrapped
-            ui={false}
-            fluid
-            src={"/images/home-personaldev.jpeg"}
-          />
-          <Card.Content>
-            <Card.Header textAlign="center">
-              Personal Development Workshop
-            </Card.Header>
-          </Card.Content>
-        </Card>
-      </Card.Group>
+      <Grid columns={3} stackable>
+        {services.map((service) => (
+          <Grid.Column key={service.key}>
+            <Header size="medium" textAlign="center" dividing>
+              {service.service}
+            </Header>
+            <Image src={`${service.image}`} />
+          </Grid.Column>
+        ))}
+      </Grid>
     </>
   );
 };

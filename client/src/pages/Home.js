@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Header, Image, Grid, Button } from "semantic-ui-react";
 import HomeIssues from "../components/HomeIssues";
 import HomeServices from "../components/HomeServices";
@@ -6,15 +7,11 @@ import HomeServices from "../components/HomeServices";
 
 const Home = () => {
   const style = {
-    h1: {
-      margin: "2em",
-    },
     h2: {
-      margin: "4em 0em 2em",
+      margin: "2em 0em 2em",
     },
     h3: {
-      marginTop: "2em",
-      padding: "2em 0em",
+      margin: "2em",
     },
     last: {
       marginBottom: "300px",
@@ -24,14 +21,14 @@ const Home = () => {
   // const [toggle, setToggle] = useState(true);
 
   return (
-    <div style={style.h1}>
+    <>
       <Grid container columns={2} doubling stackable centered>
         <Grid.Column>
           <Header
-            as="h1"
-            content="Hello/Welcome/Kamusta"
+            size="huge"
+            content="Kamusta"
             textAlign="center"
-            style={style.h1}
+            style={style.h3}
           />
           <p>
             "Sed ut perspiciatis unde omnis iste natus error sit voluptatem
@@ -53,20 +50,40 @@ const Home = () => {
         <Grid.Column>
           <Image src={"/images/home-welcome.jpg"} fluid />
         </Grid.Column>
+        <Grid.Row>
+          <Header
+            size="large"
+            content="Common Issues dealt in therapy"
+            textAlign="center"
+            style={style.h2}
+          />
+        </Grid.Row>
+        <Grid.Row>
+          <HomeIssues />
+        </Grid.Row>
+        <Grid.Row>
+          <Header
+            size="large"
+            content="Our Services"
+            textAlign="center"
+            style={style.h2}
+          />
+        </Grid.Row>
       </Grid>
-      <HomeIssues />
       <HomeServices />
-      <Grid container columns={2} style={style.h1}>
-        <Grid.Column>
-          <Header as="h1" textAlign="center">
-            Judgement-free zone, come as you are
-          </Header>
-        </Grid.Column>
-        <Grid.Column>
-          <Button color="pink" size="large" content="Book Now" />
+      <Grid container columns={2} stackable centered>
+        <Header as="h1" textAlign="center" style={style.h3}>
+          This is a judgement-free zone, come as you are
+        </Header>
+        <Grid.Column verticalAlign="middle" centered>
+          <Link to={`/login`}>
+            <Button fluid size="massive">
+              Book Now
+            </Button>
+          </Link>
         </Grid.Column>
       </Grid>
-    </div>
+    </>
   );
 };
 
