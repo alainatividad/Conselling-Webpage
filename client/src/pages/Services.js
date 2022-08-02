@@ -4,17 +4,6 @@ import { useUserContext } from "../utils/UserContext";
 import { UPDATE_CURRPAGE } from "../utils/actions";
 
 const Services = () => {
-  const style = {
-    h2: {
-      margin: "2em 0em 2em",
-    },
-    h3: {
-      margin: "2em",
-    },
-    last: {
-      marginBottom: "300px",
-    },
-  };
   // get user state
   const [state, dispatch] = useUserContext();
 
@@ -30,7 +19,6 @@ const Services = () => {
             size="large"
             content="Evidence-based Treatments"
             textAlign="center"
-            // style={style.h2}
           />
         </Grid.Row>
         <Grid.Row>
