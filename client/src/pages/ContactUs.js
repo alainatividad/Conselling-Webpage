@@ -29,9 +29,9 @@ const ContactUs = () => {
   const emailService = process.env.REACT_APP_EMAIL_SERVICE;
   const contactTemplate = process.env.REACT_APP_CONTACT_TEMPLATE;
 
+  emailjs.init(emailKey);
   // get user state
   storeInLocalStorage({ name: "current_page", value: "contact" });
-  emailjs.init(emailKey);
   const [success, setSuccess] = useState(false);
 
   // set initial form state
@@ -114,7 +114,7 @@ const ContactUs = () => {
               label="Contact Number"
               placeholder="Contact Number"
               value={userFormData.contact}
-              name="number"
+              name="contact"
               onChange={handleInputChange}
             />
             <Form.Field

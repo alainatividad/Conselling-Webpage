@@ -45,6 +45,7 @@ const SignupForm = () => {
       }
 
       // if signup successful, update userState and statusState
+      storeInLocalStorage({ name: "user", value: "client" });
       // dispatch({ type: UPDATE_STATE, user: "client", status: true });
       Auth.login(data.createClient.token);
       navigate("/profile");

@@ -9,6 +9,7 @@ import {
   TextArea,
 } from "semantic-ui-react";
 
+import emailjs from "@emailjs/browser";
 import DatePicker from "react-date-picker";
 import { getISODay, differenceInCalendarDays } from "date-fns";
 
@@ -31,10 +32,14 @@ function unwindBy(arr, f) {
   );
 }
 
-const LoadCalendar = (props) => {
+const LoadCalendar = () => {
   const style = {
     margin: "1em 0",
   };
+
+  const emailKey = process.env.REACT_APP_EMAIL_KEY;
+  const emailService = process.env.REACT_APP_EMAIL_SERVICE;
+  const bookingTemplate = process.env.REACT_APP_BOOKING_TEMPLATE;
 
   let selectedConsultant = getFromLocalStorage("selectedConsultant");
 
@@ -47,7 +52,7 @@ const LoadCalendar = (props) => {
     // variables: { id: state.selectedConsultant },
     variables: { id: selectedConsultant },
   });
-  const [addBooking, { errorBook }] = useMutation(ADD_BOOKING);
+  const [addBooking, { bookError }] = useMutation(ADD_BOOKING);
 
   useEffect(() => {
     refetch();
@@ -64,7 +69,7 @@ const LoadCalendar = (props) => {
 
   const handleButtonClick = async () => {
     try {
-      const { booking } = await addBooking({
+      const booking = await addBooking({
         variables: {
           // consultantId: state.selectedConsultant,
           consultantId: selectedConsultant,
@@ -72,10 +77,36 @@ const LoadCalendar = (props) => {
           concern: clientText,
         },
       });
-      if (!booking) {
-        throw new Error(errorBook);
-      }
-      setSuccess(true);
+      const templateParams = {
+        consultant: booking.data.addBooking.consultant,
+        fullName: booking.data.addBooking.fullName,
+        email: booking.data.addBooking.email,
+        scheduleDate: new Date(
+          booking.data.addBooking.scheduleDate
+        ).toLocaleString("en-GB", {
+          timezone: "Australia/Sydney",
+        }),
+      };
+
+      console.log(templateParams);
+      emailjs
+        .send(emailService, bookingTemplate, templateParams, emailKey)
+        .then(
+          (result) => {
+            console.log("SUCCESS!", result.status, result.text);
+          },
+          (error) => {
+            console.log(error.text);
+          }
+        );
+      // .then(
+      //   (result) => {
+      //     <Message
+      //   },
+      //   (error) => {
+      //     console.log(error.text);
+      //   }
+      // );
     } catch (err) {
       console.error(err);
     }
@@ -150,7 +181,6 @@ const LoadCalendar = (props) => {
               selectOnNavigation={false}
               onChange={(e, data) => {
                 setTime(data.value);
-                console.log(data);
               }}
               // options={dates}
               options={filteredDates}
@@ -194,7 +224,9 @@ const LoadCalendar = (props) => {
               <Button disabled>Book an Appointment</Button>
             </div>
           )}
-          {success && <Message content="Success!!" />}
+          {success && (
+            <Message content="You have successfully booked! We will send you an email containing the details of your booked appointment. Thank you!" />
+          )}
         </Container>
       </>
     );
