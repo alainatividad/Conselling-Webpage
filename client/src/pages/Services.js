@@ -24,25 +24,27 @@ const Services = () => {
 
   return (
     <>
-      <Grid container columns={1} doubling stackable centered>
+      <Grid container columns={3} doubling stackable centered>
         <Grid.Row>
           <Header
             size="large"
             content="Evidence-based Treatments"
             textAlign="center"
-            style={style.h2}
+            // style={style.h2}
           />
         </Grid.Row>
         <Grid.Row>
-          <List bulleted>
-            <List.Item>CBT</List.Item>
-            <List.Item>DBT</List.Item>
-            <List.Item>ACT</List.Item>
-            <List.Item>SFBT</List.Item>
-            <List.Item>Narrative Therapy</List.Item>
-            <List.Item>Sandplay/Play Therapy</List.Item>
-            <List.Item>Imago Therapy</List.Item>
-          </List>
+          <Grid.Column textAlign="left">
+            <List bulleted>
+              <List.Item>CBT</List.Item>
+              <List.Item>DBT</List.Item>
+              <List.Item>ACT</List.Item>
+              <List.Item>SFBT</List.Item>
+              <List.Item>Narrative Therapy</List.Item>
+              <List.Item>Sandplay/Play Therapy</List.Item>
+              <List.Item>Imago Therapy</List.Item>
+            </List>
+          </Grid.Column>
         </Grid.Row>
       </Grid>
     </>
