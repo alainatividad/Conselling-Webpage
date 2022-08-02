@@ -14,6 +14,7 @@ const About = () => {
   useEffect(() => {
     dispatch({ type: UPDATE_CURRPAGE, payload: "about" });
   }, []);
+
   const { loading, error, data } = useQuery(GET_CONSULTANTS);
 
   if (loading) {
