@@ -3,6 +3,7 @@
   position: relative;
   border: 1px solid rgba(34, 36, 38, 0.15);
   border-radius: 0.28571429rem;
+  line-height: 1em;
 }
 .react-date-picker,
 .react-date-picker *,
