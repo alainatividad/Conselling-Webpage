@@ -1,27 +1,37 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { Menu, Image, Divider, Sticky } from "semantic-ui-react";
+import { Menu, Image, Divider } from "semantic-ui-react";
 import { useUserContext } from "../utils/UserContext";
 import { UPDATE_CURRPAGE } from "../utils/actions";
 import Auth from "../utils/auth";
 // import header from "../assets/img/kamalayan-header-noborder.png";
 
 const AppNavbar = () => {
+  const style = {
+    h2: {
+      margin: "2em 0em 2em",
+    },
+    h3: {
+      padding: "2em",
+    },
+    last: {
+      marginBottom: "300px",
+    },
+  };
+
   // get user state
   const [state, dispatch] = useUserContext();
-  const contextRef = useRef();
 
   const handleItemClick = async (name) => {
     dispatch({ type: UPDATE_CURRPAGE, payload: name });
   };
 
   return (
-    // <Sticky context={contextRef} bottomOffset={0}>
     <>
       <Image
         src={"/images/kamalayan-header-noborder.png"}
         size="large"
-        // fluid
+        style={style.h3}
         centered
       />
       <Menu secondary stackable>
@@ -88,7 +98,6 @@ const AppNavbar = () => {
       </Menu>
       <Divider section />
     </>
-    // </Sticky>
   );
 };
 

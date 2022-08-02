@@ -93,11 +93,7 @@ const Login = () => {
         <Grid.Row>
           {/*  style={{ maxWidth: 450 }} */}
           <Grid.Column>
-            <Header
-              as="h2"
-              textAlign="center"
-              content="Client? Log-in to your account"
-            />
+            <Header as="h2" textAlign="center" content="Client Login" />
             <Form size="large" onSubmit={handleClientSubmit}>
               <Segment stacked>
                 <Form.Input
@@ -138,11 +134,7 @@ const Login = () => {
             </Message>
           </Grid.Column>
           <Grid.Column>
-            <Header
-              as="h2"
-              textAlign="center"
-              content="Consultant? Log-in to your account"
-            />
+            <Header as="h2" textAlign="center" content="Consultant Login" />
             <Form size="large" onSubmit={handleConsultantSubmit}>
               <Segment stacked>
                 <Form.Input
