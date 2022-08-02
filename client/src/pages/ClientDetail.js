@@ -58,6 +58,14 @@ const ClientDetail = () => {
     contactNumber,
     email,
     concern,
+    birthday,
+    address,
+    familyHistory,
+    relationshipStat,
+    educationalBG,
+    medHistory,
+    significantEvent,
+    trauma,
     soapNotes,
     additionalNotes,
   } = data.getClient;
@@ -90,7 +98,12 @@ const ClientDetail = () => {
 
       <h2>{fullName}</h2>
 
-      <p>Scheduled Appointment: {scheduleDate}</p>
+      <p>
+        <strong>Scheduled Appointment: </strong>
+        {new Date(scheduleDate).toLocaleString("en-GB", {
+          timezone: "Australia/Sydney",
+        })}
+      </p>
 
       <p>
         <strong>Concern: </strong>
@@ -100,12 +113,87 @@ const ClientDetail = () => {
         <strong>Consultant: </strong>
         {consultant}
       </p>
-      <strong>Contact details: </strong>
-      <ul>
-        <li>{contactNumber}</li>
-        <li>{email}</li>
-      </ul>
-      <Button content="Add Notes" onClick={handleToggleClick} />
+      <Form>
+        <Form.Group widths="equal">
+          <Form.Input
+            fluid
+            placeholder="Contact Number"
+            name="contactNumber"
+            label="Contact Number"
+            value={contactNumber}
+            readOnly
+          />
+          <Form.Input
+            fluid
+            placeholder="DD/MM/YYYY"
+            name="birthday"
+            label="Date of Birth"
+            value={birthday}
+            readOnly
+          />
+          <Form.Input
+            name="relationshipStat"
+            value={relationshipStat}
+            label="Relationship Status"
+            readOnly
+          />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <Form.Input
+            fluid
+            label="Primary Concern"
+            name="concern"
+            value={concern}
+            readOnly
+          />
+          <Form.Input
+            fluid
+            label="Trauma"
+            name="trauma"
+            value={trauma}
+            readOnly
+          />
+        </Form.Group>
+        <Form.Input
+          fluid
+          label="Address"
+          name="address"
+          value={address}
+          readOnly
+        />
+        <Form.Input
+          name="educationalBG"
+          value={educationalBG}
+          control={TextArea}
+          label="Educational Background"
+          readOnly
+        />
+        <Form.Field
+          name="familyHistory"
+          value={familyHistory}
+          control={TextArea}
+          label="Family History"
+          readOnly
+        />
+        <Form.Field
+          name="medHistory"
+          value={medHistory}
+          control={TextArea}
+          label="Medical History"
+          readOnly
+        />
+        <Form.Field
+          name="significantEvent"
+          value={significantEvent}
+          control={TextArea}
+          label="Significant Event"
+          readOnly
+        />
+      </Form>
+
+      <div style={style}>
+        <Button content="Add Notes" onClick={handleToggleClick} />
+      </div>
 
       <Transition visible={toggleForm} animation="fade down" duration={500}>
         <Form style={style}>
