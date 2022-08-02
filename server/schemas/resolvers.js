@@ -1,5 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { Client, Consultant, Availability } = require("../models");
+const { Client, Consultant, Availability, Enquiry } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
@@ -164,6 +164,22 @@ const resolvers = {
         );
       }
       throw new AuthenticationError("You need to be logged in");
+    },
+    createEnquiry: async (
+      parent,
+      { email, message, contact, firstName, lastName }
+    ) => {
+      const user = await Enquiry.create({
+        email,
+        message,
+        contact,
+        firstName,
+        lastName,
+      });
+      if (!user) {
+        throw new error("Cannot create entry");
+      }
+      return user;
     },
   },
 };
