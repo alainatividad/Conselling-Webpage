@@ -53,6 +53,16 @@ const typeDefs = gql`
     booked: Boolean
   }
 
+  type Enquiry {
+    _id: ID
+    email: String
+    message: String
+    firstName: String
+    lastName: String
+    fullName: String
+    contact: String
+  }
+
   type AuthClient {
     token: ID!
     user: Client
@@ -128,6 +138,13 @@ const typeDefs = gql`
     ): Client
     updateConsultantDetails(consultant: ConsultantInput!): Consultant
     updateClientDetails(clientId: String!, client: ClientInput!): Client
+    createEnquiry(
+      email: String!
+      message: String!
+      contact: String!
+      firstName: String!
+      lastName: String!
+    ): Enquiry
     # updateAvailability(consultantId: String!, time: String!): Availability
     # addClientToConsultant(consultantId: String!): Consultant
   }
