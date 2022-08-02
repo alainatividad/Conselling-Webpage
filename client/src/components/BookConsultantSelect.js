@@ -86,7 +86,7 @@ const BookConsultantSelect = () => {
             <p>{consultantDetails.services}</p>
           </Segment>
         ) : null}
-        {consultant ? <LoadCalendar consultant={consultant} /> : null}
+        {consultant ? <LoadCalendar /> : null}
       </Container>
     </>
   );

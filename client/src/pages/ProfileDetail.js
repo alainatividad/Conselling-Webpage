@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Container, Form, Button, TextArea, Message } from "semantic-ui-react";
 import { useQuery, useMutation } from "@apollo/client";
 // import { useUserContext } from "../utils/UserContext";
 import { GET_ME_CLIENT } from "../utils/queries";
-import { UPDATE_CLIENT } from "../utils/mutations";
+import { UPDATE_CLIENT, DELETE_BOOKING } from "../utils/mutations";
 
 import LoaderComp from "../components/LoaderComp";
 import ErrorMessage from "../components/ErrorMessage";
@@ -12,6 +13,7 @@ import { validateBday } from "../utils/validate";
 import Auth from "../utils/auth";
 
 const ProfileDetail = () => {
+  const navigate = useNavigate();
   // get user state
   const { id } = useParams();
   // const [state] = useUserContext();
@@ -28,6 +30,8 @@ const ProfileDetail = () => {
     medHistory: "",
     significantEvent: "",
     trauma: "",
+    scheduleDate: "",
+    consultant: "",
   });
 
   if (!Auth.loggedIn()) {
@@ -50,8 +54,23 @@ const ProfileDetail = () => {
       await updateClientDetails({
         variables: { clientId: id, client: clientForm },
       });
-
       setSuccess(true);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const [deleteBooking] = useMutation(DELETE_BOOKING);
+  const handleCancelButton = async () => {
+    try {
+      const { booking } = await deleteBooking({
+        variables: {
+          // consultantId: state.selectedConsultant,
+          consultant: clientForm.consultant,
+          scheduleDate: clientForm.scheduleDate,
+        },
+      });
+      navigate("/profile");
     } catch (err) {
       console.error(err);
     }
@@ -96,8 +115,15 @@ const ProfileDetail = () => {
       medHistory: medHistory,
       significantEvent: significantEvent,
       trauma: trauma,
+
+      scheduleDate: scheduleDate,
+      consultant: consultant,
     });
   }, [data.meClient]);
+
+  if (!scheduleDate) {
+    navigate("/profile");
+  }
 
   return (
     <Container>
@@ -195,7 +221,9 @@ const ProfileDetail = () => {
           content="Save Details"
           onClick={handleButtonClick}
           type="submit"
+          color="green"
         />
+        <Button onClick={handleCancelButton}>Cancel booking</Button>
       </Form>
       {success && <Message content="Success!!" />}
       {errorMsg && <ErrorMessage header="error" message={errorMsg} />}
