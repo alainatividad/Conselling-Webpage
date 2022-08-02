@@ -63,7 +63,7 @@ const ProfileDetail = () => {
   const [deleteBooking] = useMutation(DELETE_BOOKING);
   const handleCancelButton = async () => {
     try {
-      const { booking } = await deleteBooking({
+      await deleteBooking({
         variables: {
           // consultantId: state.selectedConsultant,
           consultant: clientForm.consultant,

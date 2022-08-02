@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Header, Image, Grid } from "semantic-ui-react";
 const services = [
   {
@@ -38,9 +39,11 @@ const HomeServices = () => {
       <Grid columns={3} stackable>
         {services.map((service) => (
           <Grid.Column key={service.key}>
-            <Header size="medium" textAlign="center" dividing>
-              {service.service}
-            </Header>
+            <Link to={`/services/#${service.service}`}>
+              <Header size="medium" textAlign="center" dividing>
+                {service.service}
+              </Header>
+            </Link>
             <Image src={`${service.image}`} />
           </Grid.Column>
         ))}

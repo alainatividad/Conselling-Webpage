@@ -45,14 +45,14 @@ const LoadCalendar = () => {
 
   const [dateValue, onChange] = useState(new Date());
   const [time, setTime] = useState("");
-  const [success, setSuccess] = useState(false);
+  const [success] = useState(false);
   const [clientText, setClientText] = useState("");
 
   const { loading, error, data, refetch } = useQuery(GET_AVAILABILITY, {
     // variables: { id: state.selectedConsultant },
     variables: { id: selectedConsultant },
   });
-  const [addBooking, { bookError }] = useMutation(ADD_BOOKING);
+  const [addBooking] = useMutation(ADD_BOOKING);
 
   useEffect(() => {
     refetch();
