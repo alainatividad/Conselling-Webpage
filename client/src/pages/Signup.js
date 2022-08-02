@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
-import { useUserContext } from "../utils/UserContext";
-import { UPDATE_STATE } from "../utils/actions";
 import { CREATE_CLIENT } from "../utils/mutations";
+import { storeInLocalStorage } from "../utils/helper";
 import Auth from "../utils/auth";
 import {
   Button,
@@ -16,8 +15,9 @@ import {
 
 const SignupForm = () => {
   const navigate = useNavigate();
+  storeInLocalStorage({ name: "current_page", value: "signup" });
   // get user state
-  const [state, dispatch] = useUserContext();
+  // const [state, dispatch] = useUserContext();
   // set initial form state
   const [userFormData, setUserFormData] = useState({
     firstName: "",
@@ -45,7 +45,7 @@ const SignupForm = () => {
       }
 
       // if signup successful, update userState and statusState
-      dispatch({ type: UPDATE_STATE, user: "client", status: true });
+      // dispatch({ type: UPDATE_STATE, user: "client", status: true });
       Auth.login(data.createClient.token);
       navigate("/profile");
     } catch (err) {

@@ -1,15 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Grid, List, Header } from "semantic-ui-react";
-import { useUserContext } from "../utils/UserContext";
-import { UPDATE_CURRPAGE } from "../utils/actions";
+import { storeInLocalStorage } from "../utils/helper";
 
 const Services = () => {
   // get user state
-  const [state, dispatch] = useUserContext();
-
-  useEffect(() => {
-    dispatch({ type: UPDATE_CURRPAGE, payload: "services" });
-  }, []);
+  storeInLocalStorage({ name: "current_page", value: "services" });
 
   return (
     <>

@@ -2,18 +2,19 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Container, Form, Button, TextArea, Message } from "semantic-ui-react";
 import { useQuery, useMutation } from "@apollo/client";
-import { useUserContext } from "../utils/UserContext";
+// import { useUserContext } from "../utils/UserContext";
 import { GET_ME_CLIENT } from "../utils/queries";
 import { UPDATE_CLIENT } from "../utils/mutations";
 
 import LoaderComp from "../components/LoaderComp";
 import ErrorMessage from "../components/ErrorMessage";
 import { validateBday } from "../utils/validate";
+import Auth from "../utils/auth";
 
 const ProfileDetail = () => {
   // get user state
   const { id } = useParams();
-  const [state] = useUserContext();
+  // const [state] = useUserContext();
   const [errorMsg, setErrorMsg] = useState("");
   const [success, setSuccess] = useState(false);
   const [clientForm, setClientForm] = useState({
@@ -29,7 +30,7 @@ const ProfileDetail = () => {
     trauma: "",
   });
 
-  if (!state.loggedIn) {
+  if (!Auth.loggedIn()) {
     return <ErrorMessage header="notLoggedIn" />;
   }
   const [updateClientDetails] = useMutation(UPDATE_CLIENT);

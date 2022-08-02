@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
-import { useUserContext } from "../utils/UserContext";
-import { UPDATE_STATE, UPDATE_CURRPAGE } from "../utils/actions";
+import { storeInLocalStorage } from "../utils/helper";
 import { LOGIN_CLIENT, LOGIN_CONSULTANT } from "../utils/mutations";
 import Auth from "../utils/auth";
 import {
@@ -16,12 +15,13 @@ import {
 
 const Login = () => {
   const navigate = useNavigate();
+  storeInLocalStorage({ name: "current_page", value: "login" });
   // get user state
-  const [state, dispatch] = useUserContext();
+  // const [state, dispatch] = useUserContext();
 
-  useEffect(() => {
-    dispatch({ type: UPDATE_CURRPAGE, payload: "login" });
-  }, []);
+  // useEffect(() => {
+  //   // dispatch({ type: UPDATE_CURRPAGE, payload: "login" });
+  // }, []);
 
   const [clientFormData, setClientFormData] = useState({
     email: "",
@@ -48,7 +48,8 @@ const Login = () => {
       const { data } = await loginClient({ variables: { ...clientFormData } });
 
       // if signup successful, update userState and statusState
-      dispatch({ type: UPDATE_STATE, user: "client", status: true });
+      // dispatch({ type: UPDATE_STATE, user: "client", status: true });
+      storeInLocalStorage({ name: "user", value: "client" });
       Auth.login(data.loginClient.token);
       navigate("/profile");
     } catch (err) {
@@ -71,7 +72,8 @@ const Login = () => {
         variables: { ...consultantFormData },
       });
       // if signup successful, update userState
-      dispatch({ type: UPDATE_STATE, user: "consultant", status: true });
+      // dispatch({ type: UPDATE_STATE, user: "consultant", status: true });
+      storeInLocalStorage({ name: "user", value: "consultant" });
       Auth.login(data.loginConsultant.token);
       navigate("/profile");
     } catch (err) {

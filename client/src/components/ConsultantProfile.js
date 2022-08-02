@@ -24,7 +24,7 @@ const ConsultantProfile = (props) => {
           </Item.Group>
         </>
       ) : null}
-      update availability?
+      {/* update availability? */}
     </Container>
   );
 };

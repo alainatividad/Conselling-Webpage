@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, Image, Divider } from "semantic-ui-react";
-import { useUserContext } from "../utils/UserContext";
-import { UPDATE_CURRPAGE } from "../utils/actions";
 import Auth from "../utils/auth";
+import { getFromLocalStorage, storeInLocalStorage } from "../utils/helper";
 // import header from "../assets/img/kamalayan-header-noborder.png";
 
 const AppNavbar = () => {
@@ -20,10 +19,21 @@ const AppNavbar = () => {
   };
 
   // get user state
-  const [state, dispatch] = useUserContext();
+  const [state, setState] = useState("home");
+  // const [state, dispatch] = useUserContext();
+  let currentPage = getFromLocalStorage("current_page");
+  useEffect(() => {
+    if (!currentPage) {
+      currentPage = "home";
+      storeInLocalStorage({ name: "current_page", value: "home" });
+    }
+    handleItemClick(currentPage);
+  }, [currentPage, state]);
 
   const handleItemClick = async (name) => {
-    dispatch({ type: UPDATE_CURRPAGE, payload: name });
+    setState(name);
+    storeInLocalStorage({ name: "current_page", value: name });
+    // dispatch({ type: UPDATE_CURRPAGE, payload: name });
   };
 
   return (
@@ -40,38 +50,43 @@ const AppNavbar = () => {
             as={Link}
             to="/"
             name="home"
-            active={state.currentPage === "home"}
+            // active={state.currentPage === "home"}
+            active={currentPage === "home"}
             onClick={() => handleItemClick("home")}
           />
           <Menu.Item
             as={Link}
             to="/about"
             name="about"
-            active={state.currentPage === "about"}
+            // active={state.currentPage === "about"}
+            active={currentPage === "about"}
             onClick={() => handleItemClick("about")}
           />
           <Menu.Item
             as={Link}
             to="/services"
             name="services"
-            active={state.currentPage === "services"}
+            // active={state.currentPage === "services"}
+            active={currentPage === "services"}
             onClick={() => handleItemClick("services")}
           />
           <Menu.Item
             as={Link}
             to="/contact-us"
             name="contact us"
-            active={state.currentPage === "contact"}
+            // active={state.currentPage === "contact"}
+            active={currentPage === "contact"}
             onClick={() => handleItemClick("contact")}
           />
           {/* if user is logged in show profile and logout */}
-          {state.loggedIn ? (
+          {Auth.loggedIn() ? (
             <>
               <Menu.Item
                 as={Link}
                 to="/profile"
                 name="profile"
-                active={state.currentPage === "profile"}
+                // active={state.currentPage === "profile"}
+                active={currentPage === "profile"}
                 onClick={() => handleItemClick("profile")}
               />
               <Menu.Item name="logout" onClick={() => Auth.logout()} />
@@ -82,14 +97,16 @@ const AppNavbar = () => {
                 as={Link}
                 to="/sign-up"
                 name="sign up"
-                active={state.currentPage === "signup"}
+                // active={state.currentPage === "signup"}
+                active={currentPage === "signup"}
                 onClick={() => handleItemClick("signup")}
               />
               <Menu.Item
                 as={Link}
                 to="/login"
                 name="login"
-                active={state.currentPage === "login"}
+                // active={state.currentPage === "login"}
+                active={currentPage === "login"}
                 onClick={() => handleItemClick("login")}
               />
             </>
