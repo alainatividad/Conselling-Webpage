@@ -67,7 +67,6 @@ export const ADD_BOOKING = gql`
     ) {
       _id
       email
-      password
       fullName
       contactNumber
       scheduleDate
@@ -82,7 +81,6 @@ export const UPDATE_CLIENT = gql`
     updateClientDetails(clientId: $clientId, client: $client) {
       _id
       email
-      password
       firstName
       fullName
       lastName
@@ -127,6 +125,32 @@ export const CREATE_ENQUIRY = gql`
       lastName
       fullName
       contact
+    }
+  }
+`;
+export const DELETE_BOOKING = gql`
+  mutation DeleteBooking($consultant: String!, $scheduleDate: String!) {
+    deleteBooking(consultant: $consultant, scheduleDate: $scheduleDate) {
+      _id
+      email
+      firstName
+      fullName
+      lastName
+      contactNumber
+      birthday
+      scheduleDate
+      consultant
+      concern
+      prevSched
+      address
+      familyHistory
+      relationshipStat
+      educationalBG
+      medHistory
+      significantEvent
+      trauma
+      additionalNotes
+      soapNotes
     }
   }
 `;

@@ -181,6 +181,45 @@ const resolvers = {
       }
       return user;
     },
+    deleteBooking: async (parent, { consultant, scheduleDate }, context) => {
+      // update Availability, Client, and Consultant tables
+      if (context.user) {
+        // console.log(scheduleDate, consultant, context.user._id);
+        const consultantSaved = await Consultant.findOneAndUpdate(
+          { fullName: consultant, clients: { _id: context.user._id } },
+          // { $pull: { clients: { _id: context.user._id } } },
+          { $pull: { clients: { _id: context.user._id } } },
+          { new: true, runValidators: true }
+        );
+        if (consultantSaved) {
+          // console.log("clients!", consultantSaved._id);
+          const availtime = await Availability.findOneAndUpdate(
+            {
+              consultantId: consultantSaved._id,
+              "sched.time": scheduleDate,
+            },
+            { "sched.$.booked": false },
+            { new: true, runValidators: true }
+          );
+          // console.log("date", availtime.sched.time);
+          if (availtime) {
+            const client = await Client.findOneAndUpdate(
+              { _id: context.user._id },
+              {
+                scheduleDate: "",
+                consultant: "",
+              },
+              { new: true, runValidators: true }
+            );
+            return client;
+          } else {
+            throw new Error("Failed");
+          }
+        } else {
+          throw new Error("Did not find consultant");
+        }
+      }
+    },
   },
 };
 

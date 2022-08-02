@@ -145,6 +145,7 @@ const typeDefs = gql`
       firstName: String!
       lastName: String!
     ): Enquiry
+    deleteBooking(consultant: String!, scheduleDate: String!): Client
     # updateAvailability(consultantId: String!, time: String!): Availability
     # addClientToConsultant(consultantId: String!): Consultant
   }

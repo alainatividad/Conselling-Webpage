@@ -40,6 +40,9 @@ class AuthService {
   logout() {
     // Clear user token and profile data from localStorage
     localStorage.removeItem("id_token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("current_page");
+    localStorage.removeItem("selectedConsultant");
     // this will reload the page and reset the state of the application
     window.location.assign("/");
   }
