@@ -1,5 +1,5 @@
 import React from "react";
-import { Segment, Grid, Card, Header } from "semantic-ui-react";
+import { Segment, Grid, Card, Header, List } from "semantic-ui-react";
 import { useQuery } from "@apollo/client";
 import { GET_CONSULTANTS } from "../utils/queries";
 import { storeInLocalStorage } from "../utils/helper";
@@ -44,16 +44,12 @@ const About = () => {
             <Card centered fluid>
               <Card.Content header="Our Mission" textAlign="center" />
               <Card.Content>
-                It is a long established fact that a reader will be distracted
-                by the readable content of a page when looking at its layout.
-                The point of using Lorem Ipsum is that it has a more-or-less
-                normal distribution of letters, as opposed to using 'Content
-                here, content here', making it look like readable English. Many
-                desktop publishing packages and web page editors now use Lorem
-                Ipsum as their default model text, and a search for 'lorem
-                ipsum' will uncover many web sites still in their infancy.
-                Various versions have evolved over the years, sometimes by
-                accident, sometimes on purpose (injected humour and the like).
+                Kamalayan Therapy Services Inc. is a safe space for clients to
+                grow and develop the kamalayan or consciousness to know
+                themselves. We offer targeted psychotherapy methods and
+                evidenced-based therapy to guide individuals, couples and
+                families on a self-discovery journey to feeling better and
+                learning effective ways of coping with diverse situations.
               </Card.Content>
             </Card>
           </Grid.Column>
@@ -61,36 +57,30 @@ const About = () => {
             <Card centered fluid>
               <Card.Content header="Our Vision" textAlign="center" />
               <Card.Content>
-                It is a long established fact that a reader will be distracted
-                by the readable content of a page when looking at its layout.
-                The point of using Lorem Ipsum is that it has a more-or-less
-                normal distribution of letters, as opposed to using 'Content
-                here, content here', making it look like readable English. Many
-                desktop publishing packages and web page editors now use Lorem
-                Ipsum as their default model text, and a search for 'lorem
-                ipsum' will uncover many web sites still in their infancy.
-                Various versions have evolved over the years, sometimes by
-                accident, sometimes on purpose (injected humour and the like).
+                All clients can have a convenient, affordable, and stigma-free
+                access to mental health support, which will cater their unique
+                needs and will allow them to grow as a compassionate human
+                being.
               </Card.Content>
             </Card>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row centered columns={5}>
-          <Card centered fluid>
-            <Card.Content header="Our Values" textAlign="center" />
-            <Card.Content>
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout. The
-              point of using Lorem Ipsum is that it has a more-or-less normal
-              distribution of letters, as opposed to using 'Content here,
-              content here', making it look like readable English. Many desktop
-              publishing packages and web page editors now use Lorem Ipsum as
-              their default model text, and a search for 'lorem ipsum' will
-              uncover many web sites still in their infancy. Various versions
-              have evolved over the years, sometimes by accident, sometimes on
-              purpose (injected humour and the like).
-            </Card.Content>
-          </Card>
+          <Grid.Column>
+            <Card centered fluid>
+              <Card.Content header="Our Values" textAlign="center" />
+              <Card.Content>
+                <List bulleted textAlign="left">
+                  <List.Item>Commitment</List.Item>
+                  <List.Item>Integrity</List.Item>
+                  <List.Item>Compassion</List.Item>
+                  <List.Item>Quality</List.Item>
+                  <List.Item>Empowerment</List.Item>
+                  <List.Item>Authenticity</List.Item>
+                </List>
+              </Card.Content>
+            </Card>
+          </Grid.Column>
         </Grid.Row>
       </Grid>
       <Header as="h2" textAlign="center">
