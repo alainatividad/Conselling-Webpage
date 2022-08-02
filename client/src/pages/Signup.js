@@ -37,13 +37,6 @@ const SignupForm = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    // check if form has everything (as per react-bootstrap docs)
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
     try {
       const { data } = await addUser({ variables: { ...userFormData } });
 
@@ -105,8 +98,8 @@ const SignupForm = () => {
                   <Form.Input
                     required={true}
                     fluid
-                    label="E-mail"
-                    placeholder="E-mail address"
+                    label="Email"
+                    placeholder="Email address"
                     name="email"
                     value={userFormData.email}
                     onChange={handleInputChange}
