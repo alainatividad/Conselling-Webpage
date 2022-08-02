@@ -104,5 +104,31 @@ export const UPDATE_CLIENT = gql`
     }
   }
 `;
+
+export const CREATE_ENQUIRY = gql`
+  mutation CreateEnquiry(
+    $email: String!
+    $message: String!
+    $contact: String!
+    $firstName: String!
+    $lastName: String!
+  ) {
+    createEnquiry(
+      email: $email
+      message: $message
+      contact: $contact
+      firstName: $firstName
+      lastName: $lastName
+    ) {
+      _id
+      email
+      message
+      firstName
+      lastName
+      fullName
+      contact
+    }
+  }
+`;
 // export const LOGIN_CLIENT = gql``;
 // export const LOGIN_CLIENT = gql``;
