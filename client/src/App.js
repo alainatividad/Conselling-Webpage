@@ -22,6 +22,7 @@ import ClientDetail from "./pages/ClientDetail";
 import ProfileDetail from "./pages/ProfileDetail";
 import Services from "./pages/Services";
 import ContactUs from "./pages/ContactUs";
+import NoMatch from "./pages/NoMatch";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -64,10 +65,7 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/profile/:id" element={<ProfileDetail />} />
               <Route path="/profile/client/:id" element={<ClientDetail />} />
-              <Route
-                path="*"
-                element={<h1 className="display-2">Wrong page!</h1>}
-              />
+              <Route path="*" element={<NoMatch />} />
             </Routes>
           </Container>
           <Footer />

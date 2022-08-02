@@ -10,7 +10,7 @@ import {
 } from "semantic-ui-react";
 import { useQuery, useMutation } from "@apollo/client";
 
-import { useUserContext } from "../utils/UserContext";
+import Auth from "../utils/auth";
 import { GET_CLIENT } from "../utils/queries";
 import { UPDATE_CLIENT } from "../utils/mutations";
 import LoaderComp from "../components/LoaderComp";
@@ -23,7 +23,6 @@ const ClientDetail = () => {
 
   // get user state
   const { id } = useParams();
-  const [state] = useUserContext();
   const [toggleForm, setToggleForm] = useState(false);
   const [success, setSuccess] = useState(false);
   const [clientForm, setClientForm] = useState({
@@ -31,7 +30,7 @@ const ClientDetail = () => {
     additionalNotes: "",
   });
 
-  if (!state.loggedIn) {
+  if (!Auth.loggedIn()) {
     return <ErrorMessage header="notLoggedIn" />;
   }
   const { loading, error, data } = useQuery(GET_CLIENT, {
@@ -56,8 +55,8 @@ const ClientDetail = () => {
     scheduleDate,
     consultant,
     contactNumber,
-    email,
     concern,
+    email,
     birthday,
     address,
     familyHistory,
@@ -117,12 +116,22 @@ const ClientDetail = () => {
         <Form.Group widths="equal">
           <Form.Input
             fluid
+            placeholder="Email Address"
+            name="email"
+            label="Email Address"
+            value={email}
+            readOnly
+          />
+          <Form.Input
+            fluid
             placeholder="Contact Number"
             name="contactNumber"
             label="Contact Number"
             value={contactNumber}
             readOnly
           />
+        </Form.Group>
+        <Form.Group widths="equal">
           <Form.Input
             fluid
             placeholder="DD/MM/YYYY"

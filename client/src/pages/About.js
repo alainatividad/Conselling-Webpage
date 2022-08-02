@@ -1,19 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Segment, Grid, Card, Header } from "semantic-ui-react";
 import { useQuery } from "@apollo/client";
 import { GET_CONSULTANTS } from "../utils/queries";
-import { useUserContext } from "../utils/UserContext";
-import { UPDATE_CURRPAGE } from "../utils/actions";
+import { storeInLocalStorage } from "../utils/helper";
 import LoaderComp from "../components/LoaderComp";
 import AboutConsultants from "../components/AboutConsultants";
 
 const About = () => {
   // get user state
-  const [state, dispatch] = useUserContext();
-
-  useEffect(() => {
-    dispatch({ type: UPDATE_CURRPAGE, payload: "about" });
-  }, []);
+  storeInLocalStorage({ name: "current_page", value: "about" });
 
   const { loading, error, data } = useQuery(GET_CONSULTANTS);
 

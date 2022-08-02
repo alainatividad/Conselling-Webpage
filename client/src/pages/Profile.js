@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import { Container } from "semantic-ui-react";
 import { useQuery } from "@apollo/client";
 import { GET_ME_CLIENT, GET_ME_CONSULTANT } from "../utils/queries";
-import { useUserContext } from "../utils/UserContext";
-import { UPDATE_CURRPAGE } from "../utils/actions";
+import { getFromLocalStorage, storeInLocalStorage } from "../utils/helper";
+// import { useUserContext } from "../utils/UserContext";
+// import { UPDATE_CURRPAGE } from "../utils/actions";
 import BookConsultantSelect from "../components/BookConsultantSelect";
 import ConsultantProfile from "../components/ConsultantProfile";
 import LoaderComp from "../components/LoaderComp";
 import ErrorMessage from "../components/ErrorMessage";
+import Auth from "../utils/auth";
 
 const profile = () => {
   const style = {
@@ -16,25 +18,28 @@ const profile = () => {
       marginTop: "2em",
     },
   };
+  storeInLocalStorage({ name: "current_page", value: "login" });
   // get user state
-  const [state, dispatch] = useUserContext();
+  // const [state, dispatch] = useUserContext();
 
-  if (!state.loggedIn) {
+  if (!Auth.loggedIn()) {
     return <ErrorMessage header="notLoggedIn" />;
   }
-
-  useEffect(() => {
-    dispatch({ type: UPDATE_CURRPAGE, payload: "profile" });
-  }, []);
+  const user = getFromLocalStorage("user");
+  let selectedConsultant = getFromLocalStorage("selectedConsultant");
+  // useEffect(() => {
+  //   dispatch({ type: UPDATE_CURRPAGE, payload: "profile" });
+  // }, []);
 
   const { loading, error, data, refetch } =
-    state.user === "client"
-      ? useQuery(GET_ME_CLIENT)
-      : useQuery(GET_ME_CONSULTANT);
+    // state.user === "client"
+    user === "client" ? useQuery(GET_ME_CLIENT) : useQuery(GET_ME_CONSULTANT);
 
   useEffect(() => {
+    selectedConsultant = getFromLocalStorage("selectedConsultant");
     refetch();
-  }, [state.selectedConsultant]);
+    // }, [state.selectedConsultant]);
+  }, [selectedConsultant]);
 
   if (loading) {
     return <LoaderComp />;
@@ -44,10 +49,10 @@ const profile = () => {
   }
 
   if (data) {
-    if (state.user === "client") {
+    // if (state.user === "client") {
+    if (user === "client") {
       //client profile
       const userData = data.meClient;
-      // (state.user === "client" ? data.meClient : data.meConsultant) || [];
 
       return (
         <div>

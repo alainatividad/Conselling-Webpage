@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Container, Segment, Dropdown, Image, Card } from "semantic-ui-react";
 import { useQuery } from "@apollo/client";
+import { storeInLocalStorage } from "../utils/helper";
 import { GET_CONSULTANTS } from "../utils/queries";
-import { useUserContext } from "../utils/UserContext";
-import { UPDATE_CONSULTANT } from "../utils/actions";
 import LoadCalendar from "./LoadCalendar";
 import LoaderComp from "./LoaderComp";
 
 const BookConsultantSelect = () => {
   // get user state
-  const [state, dispatch] = useUserContext();
+  // const [state, dispatch] = useUserContext();
   const [consultant, setConsultant] = useState("");
   const { loading, error, data } = useQuery(GET_CONSULTANTS);
   const [consultantDetails, setConsultantDetails] = useState({
@@ -45,7 +44,8 @@ const BookConsultantSelect = () => {
 
   function handleDropdown(e, data) {
     setConsultant(data.value);
-    dispatch({ type: UPDATE_CONSULTANT, payload: data.value });
+    storeInLocalStorage({ name: "selectedConsultant", value: data.value });
+    // dispatch({ type: UPDATE_CONSULTANT, payload: data.value });
     setConsultantDetails({
       desc: data.options.find((el) => el.value === data.value).desc,
       name: data.options.find((el) => el.value === data.value).text,
@@ -53,10 +53,6 @@ const BookConsultantSelect = () => {
       image: data.options.find((el) => el.value === data.value).imagePath,
       services: data.options.find((el) => el.value === data.value).services,
     });
-    // setDesc(data.options.find((el) => el.value === data.value).desc);
-    // setName(    data.options.find((el) => el.value === data.value).text);
-    // setRole(    data.options.find((el) => el.value === data.value).role);
-    // setServices(data.options.find((el) => el.value === data.value).services);
   }
 
   return (

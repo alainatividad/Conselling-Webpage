@@ -14,9 +14,9 @@ import { getISODay, differenceInCalendarDays } from "date-fns";
 
 import { GET_AVAILABILITY } from "../utils/queries";
 import { ADD_BOOKING } from "../utils/mutations";
-import { useUserContext } from "../utils/UserContext";
 import LoaderComp from "./LoaderComp";
 import ErrorMessage from "./ErrorMessage";
+import { getFromLocalStorage } from "../utils/helper";
 import "../assets/dist/Calendar.css";
 import "../assets/dist/DatePicker.css";
 function isSameDay(a, b) {
@@ -36,8 +36,7 @@ const LoadCalendar = (props) => {
     margin: "1em 0",
   };
 
-  // get user state
-  const [state] = useUserContext();
+  let selectedConsultant = getFromLocalStorage("selectedConsultant");
 
   const [dateValue, onChange] = useState(new Date());
   const [time, setTime] = useState("");
@@ -45,13 +44,15 @@ const LoadCalendar = (props) => {
   const [clientText, setClientText] = useState("");
 
   const { loading, error, data, refetch } = useQuery(GET_AVAILABILITY, {
-    variables: { id: state.selectedConsultant },
+    // variables: { id: state.selectedConsultant },
+    variables: { id: selectedConsultant },
   });
   const [addBooking, { errorBook }] = useMutation(ADD_BOOKING);
 
   useEffect(() => {
     refetch();
-  }, [state.selectedConsultant, dateValue]);
+    // }, [state.selectedConsultant, dateValue]);
+  }, [selectedConsultant, dateValue]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -65,7 +66,8 @@ const LoadCalendar = (props) => {
     try {
       const { booking } = await addBooking({
         variables: {
-          consultantId: state.selectedConsultant,
+          // consultantId: state.selectedConsultant,
+          consultantId: selectedConsultant,
           scheduleDate: time,
           concern: clientText,
         },

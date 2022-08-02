@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Form,
   Grid,
@@ -10,9 +10,8 @@ import {
 } from "semantic-ui-react";
 import { useMutation } from "@apollo/client";
 import emailjs from "@emailjs/browser";
+import { storeInLocalStorage } from "../utils/helper";
 import { CREATE_ENQUIRY } from "../utils/mutations";
-import { useUserContext } from "../utils/UserContext";
-import { UPDATE_CURRPAGE } from "../utils/actions";
 
 const ContactUs = () => {
   const style = {
@@ -30,9 +29,9 @@ const ContactUs = () => {
   const emailService = process.env.REACT_APP_EMAIL_SERVICE;
   const contactTemplate = process.env.REACT_APP_CONTACT_TEMPLATE;
 
-  emailjs.init(emailKey);
   // get user state
-  const [state, dispatch] = useUserContext();
+  storeInLocalStorage({ name: "current_page", value: "contact" });
+  emailjs.init(emailKey);
   const [success, setSuccess] = useState(false);
 
   // set initial form state
@@ -43,16 +42,12 @@ const ContactUs = () => {
     message: "",
     contact: "",
   });
-  const [addQuestion, { error, data }] = useMutation(CREATE_ENQUIRY);
+  const [addQuestion, { error }] = useMutation(CREATE_ENQUIRY);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
-
-  useEffect(() => {
-    dispatch({ type: UPDATE_CURRPAGE, payload: "contact" });
-  }, []);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
