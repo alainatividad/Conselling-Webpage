@@ -15,14 +15,6 @@ import {
 
 const Login = () => {
   const navigate = useNavigate();
-  storeInLocalStorage({ name: "current_page", value: "login" });
-  // get user state
-  // const [state, dispatch] = useUserContext();
-
-  // useEffect(() => {
-  //   // dispatch({ type: UPDATE_CURRPAGE, payload: "login" });
-  // }, []);
-
   const [clientFormData, setClientFormData] = useState({
     email: "",
     password: "",
@@ -46,9 +38,7 @@ const Login = () => {
 
     try {
       const { data } = await loginClient({ variables: { ...clientFormData } });
-
-      // if signup successful, update userState and statusState
-      // dispatch({ type: UPDATE_STATE, user: "client", status: true });
+      //save the type of user in localstorage
       storeInLocalStorage({ name: "user", value: "client" });
       Auth.login(data.loginClient.token);
       navigate("/profile");
@@ -71,8 +61,7 @@ const Login = () => {
       const { data } = await loginConsultant({
         variables: { ...consultantFormData },
       });
-      // if signup successful, update userState
-      // dispatch({ type: UPDATE_STATE, user: "consultant", status: true });
+
       storeInLocalStorage({ name: "user", value: "consultant" });
       Auth.login(data.loginConsultant.token);
       navigate("/profile");

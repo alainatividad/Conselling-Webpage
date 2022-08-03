@@ -1,50 +1,31 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Header, Image, Grid, Button } from "semantic-ui-react";
+import { Divider, Header, Image, Grid, Button } from "semantic-ui-react";
 import HomeIssues from "../components/HomeIssues";
 import HomeServices from "../components/HomeServices";
 // import header from "../assets/img/kamalayan-header.png";
 
 const Home = () => {
-  const style = {
-    h2: {
-      margin: "2em 0em 2em",
-    },
-    h3: {
-      margin: "2em",
-    },
-    last: {
-      marginBottom: "300px",
-    },
-  };
-
-  // const [toggle, setToggle] = useState(true);
-
   return (
     <>
       <Grid container columns={2} doubling stackable centered>
         <Grid.Column>
-          <Header
-            size="huge"
-            content="Kamusta"
-            textAlign="center"
-            style={style.h3}
-          />
+          <Divider hidden />
+          <Divider hidden />
+          <Header size="huge" content="Kumusta?" textAlign="center" as="h3" />
+          <Divider hidden />
+          <Divider hidden />
           <p>
-            "Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-            quae ab illo inventore veritatis et quasi architecto beatae vitae
-            dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-            aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-            eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est,
-            qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit,
-            sed quia non numquam eius modi tempora incidunt ut labore et dolore
-            magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis
-            nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut
-            aliquid ex ea commodi consequatur? Quis autem vel eum iure
-            reprehenderit qui in ea voluptate velit esse quam nihil molestiae
-            consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla
-            pariatur?"
+            Kamalayan Therapy Services bridges this gap between client and
+            consultant, giving individuals agency to choose the consultant that
+            would best cater to their needs, eliminate unnecessary wait times in
+            booking a session, and confidentially doing it at that, while
+            consultants gain more visibility on their schedule real-time and the
+            confidence they will not be double-booked.
+          </p>
+          <p>
+            This is therapy made simpler, so we invite you all to take charge of
+            your mental health with Kamalayan.
           </p>
         </Grid.Column>
         <Grid.Column>
@@ -55,7 +36,8 @@ const Home = () => {
             size="large"
             content="Common Issues dealt in therapy"
             textAlign="center"
-            style={style.h2}
+            as="h2"
+            style={{ margin: "2em" }}
           />
         </Grid.Row>
         <Grid.Row>
@@ -66,13 +48,14 @@ const Home = () => {
             size="large"
             content="Our Services"
             textAlign="center"
-            style={style.h2}
+            as="h2"
+            style={{ margin: "2em" }}
           />
         </Grid.Row>
       </Grid>
       <HomeServices />
       <Grid container columns={2} stackable centered>
-        <Header as="h1" textAlign="center" style={style.h3}>
+        <Header as="h1" textAlign="center" style={{ marginTop: "2em" }}>
           This is a judgement-free zone, come as you are
         </Header>
         <Grid.Column verticalAlign="middle" centered>

@@ -1,45 +1,46 @@
 import React from "react";
-import { Segment, Grid, Card, Header, List } from "semantic-ui-react";
+import {
+  Segment,
+  Grid,
+  Card,
+  Header,
+  List,
+  Container,
+  Divider,
+} from "semantic-ui-react";
 import { useQuery } from "@apollo/client";
 import { GET_CONSULTANTS } from "../utils/queries";
-import { storeInLocalStorage } from "../utils/helper";
-import LoaderComp from "../components/LoaderComp";
+
 import AboutConsultants from "../components/AboutConsultants";
+import LoaderComp from "../components/LoaderComp";
+import ErrorMessage from "../components/ErrorMessage";
 
 const About = () => {
-  // get user state
-  storeInLocalStorage({ name: "current_page", value: "about" });
-
   const { loading, error, data } = useQuery(GET_CONSULTANTS);
 
   if (loading) {
     return <LoaderComp />;
   }
   if (error) {
-    return (
-      <>
-        <h2>Error! {error.message}</h2>
-      </>
-    );
+    return <ErrorMessage header="error" message={error.message} />;
   }
 
   return (
     <>
-      <Grid centered columns={2} stackable>
-        <Grid.Column>
-          <Segment stacked textAlign="center">
-            Kamalayan
-            <p>n .Tagalog.</p>
-            <p>
-              root word: <strong>málay</strong>
-            </p>
-            <p>
-              <em>/ka- + malay + -án/</em>
-            </p>
-            awareness, consciousness, cognizance, recognition
-          </Segment>
-        </Grid.Column>
-        <Grid.Row centered columns={3}>
+      <Container text>
+        <Segment stacked textAlign="center">
+          Kamalayan
+          <p>n .Tagalog.</p>
+          <p>
+            root word: <strong>málay</strong>
+          </p>
+          <p>
+            <em>/ka- + malay + -án/</em>
+          </p>
+          awareness, consciousness, cognizance, recognition
+        </Segment>
+        <Divider hidden />
+        <Grid centered columns={2} stackable>
           <Grid.Column>
             <Card centered fluid>
               <Card.Content header="Our Mission" textAlign="center" />
@@ -64,12 +65,10 @@ const About = () => {
               </Card.Content>
             </Card>
           </Grid.Column>
-        </Grid.Row>
-        <Grid.Row centered columns={5}>
           <Grid.Column>
             <Card centered fluid>
               <Card.Content header="Our Values" textAlign="center" />
-              <Card.Content>
+              <Card.Content centered>
                 <List bulleted textAlign="left">
                   <List.Item>Commitment</List.Item>
                   <List.Item>Integrity</List.Item>
@@ -81,11 +80,14 @@ const About = () => {
               </Card.Content>
             </Card>
           </Grid.Column>
-        </Grid.Row>
-      </Grid>
-      <Header as="h2" textAlign="center">
-        <div>Our Consultants</div>
-      </Header>
+        </Grid>
+        <Divider hidden />
+        <Header as="h2" textAlign="center" dividing>
+          Our Consultants
+        </Header>
+      </Container>
+      <Divider hidden />
+
       <Grid verticalAlign="middle" columns={3} centered stackable>
         {data.getConsultants.map((consultant) => (
           <AboutConsultants

@@ -6,6 +6,7 @@ import {
   Header,
   Input,
   TextArea,
+  Segment,
   Message,
 } from "semantic-ui-react";
 import { useMutation } from "@apollo/client";
@@ -14,17 +15,6 @@ import { storeInLocalStorage } from "../utils/helper";
 import { CREATE_ENQUIRY } from "../utils/mutations";
 
 const ContactUs = () => {
-  const style = {
-    h2: {
-      margin: "1em 0em 1em",
-    },
-    h3: {
-      margin: "2em",
-    },
-    last: {
-      marginBottom: "300px",
-    },
-  };
   const emailKey = process.env.REACT_APP_EMAIL_KEY;
   const emailService = process.env.REACT_APP_EMAIL_SERVICE;
   const contactTemplate = process.env.REACT_APP_CONTACT_TEMPLATE;
@@ -79,94 +69,99 @@ const ContactUs = () => {
 
   return (
     <>
-      <Grid container columns={1} doubling stackable centered>
-        <Grid.Row>
-          <Header size="large" textAlign="center" style={style.h2}>
-            <div>Send us an enquiry</div>
-          </Header>
-        </Grid.Row>
-        <Grid.Row>
+      <Grid textAlign="center" verticalAlign="middle">
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header
+            as="h2"
+            size="large"
+            textAlign="center"
+            content="Send us an enquiry"
+          />
           <Form onSubmit={handleFormSubmit}>
-            <Form.Group widths="equal">
+            <Segment stacked>
+              <Form.Group widths="equal">
+                <Form.Field
+                  id="form-input-control-first-name"
+                  control={Input}
+                  required={true}
+                  label="First name"
+                  placeholder="First name"
+                  value={userFormData.firstName}
+                  name="firstName"
+                  onChange={handleInputChange}
+                />
+                <Form.Field
+                  id="form-input-control-last-name"
+                  control={Input}
+                  label="Last name"
+                  placeholder="Last name"
+                  value={userFormData.lastName}
+                  name="lastName"
+                  onChange={handleInputChange}
+                />
+              </Form.Group>
               <Form.Field
-                id="form-input-control-first-name"
+                id="form-input-control-number"
                 control={Input}
+                label="Contact Number"
+                placeholder="Contact Number"
+                value={userFormData.contact}
+                name="contact"
+                onChange={handleInputChange}
+              />
+              <Form.Field
+                id="form-textarea-control-opinion"
+                control={TextArea}
                 required={true}
-                label="First name"
-                placeholder="First name"
-                value={userFormData.firstName}
-                name="firstName"
+                label="Message"
+                placeholder="Message"
+                value={userFormData.message}
+                name="message"
                 onChange={handleInputChange}
               />
+              {error ? (
+                <Form.Field
+                  id="form-input-control-error-email"
+                  control={Input}
+                  required={true}
+                  label="Email"
+                  placeholder="Email address"
+                  value={userFormData.email}
+                  name="email"
+                  onChange={handleInputChange}
+                  error={{
+                    content: "Please enter a valid email address",
+                    pointing: "below",
+                  }}
+                />
+              ) : (
+                <Form.Field
+                  id="form-input-control-error-email"
+                  control={Input}
+                  required={true}
+                  label="Email"
+                  placeholder="Email address"
+                  value={userFormData.email}
+                  name="email"
+                  onChange={handleInputChange}
+                />
+              )}
               <Form.Field
-                id="form-input-control-last-name"
-                control={Input}
-                label="Last name"
-                placeholder="Last name"
-                value={userFormData.lastName}
-                name="lastName"
-                onChange={handleInputChange}
+                id="form-button-control-public"
+                control={Button}
+                fluid
+                size="large"
+                content="Submit Form"
               />
-            </Form.Group>
-            <Form.Field
-              id="form-input-control-number"
-              control={Input}
-              label="Contact Number"
-              placeholder="Contact Number"
-              value={userFormData.contact}
-              name="contact"
-              onChange={handleInputChange}
-            />
-            <Form.Field
-              id="form-textarea-control-opinion"
-              control={TextArea}
-              required={true}
-              label="Message"
-              placeholder="Message"
-              value={userFormData.message}
-              name="message"
-              onChange={handleInputChange}
-            />
-            {error ? (
-              <Form.Field
-                id="form-input-control-error-email"
-                control={Input}
-                required={true}
-                label="Email"
-                placeholder="Email address"
-                value={userFormData.email}
-                name="email"
-                onChange={handleInputChange}
-                error={{
-                  content: "Please enter a valid email address",
-                  pointing: "below",
-                }}
-              />
-            ) : (
-              <Form.Field
-                id="form-input-control-error-email"
-                control={Input}
-                required={true}
-                label="Email"
-                placeholder="Email address"
-                value={userFormData.email}
-                name="email"
-                onChange={handleInputChange}
-              />
-            )}
-            <Form.Field
-              id="form-button-control-public"
-              control={Button}
-              content="Submit Form"
-            />
-            {success && (
-              <Message
-                header="Thank you!"
-                content="We'll get back to you as soon as we can"
-              />
-            )}
+              {success && (
+                <Message
+                  header="Thank you!"
+                  content="We'll get back to you as soon as we can"
+                />
+              )}
+            </Segment>
           </Form>
-        </Grid.Row>
+        </Grid.Column>
       </Grid>
     </>
   );

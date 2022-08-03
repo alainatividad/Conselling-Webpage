@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Container } from "semantic-ui-react";
 import { useQuery } from "@apollo/client";
 import { GET_ME_CLIENT, GET_ME_CONSULTANT } from "../utils/queries";
-import { getFromLocalStorage, storeInLocalStorage } from "../utils/helper";
+import { getFromLocalStorage } from "../utils/helper";
 // import { useUserContext } from "../utils/UserContext";
 // import { UPDATE_CURRPAGE } from "../utils/actions";
 import BookConsultantSelect from "../components/BookConsultantSelect";
@@ -18,27 +18,19 @@ const profile = () => {
       marginTop: "2em",
     },
   };
-  storeInLocalStorage({ name: "current_page", value: "login" });
-  // get user state
-  // const [state, dispatch] = useUserContext();
 
   if (!Auth.loggedIn()) {
     return <ErrorMessage header="notLoggedIn" />;
   }
   const user = getFromLocalStorage("user");
   let selectedConsultant = getFromLocalStorage("selectedConsultant");
-  // useEffect(() => {
-  //   dispatch({ type: UPDATE_CURRPAGE, payload: "profile" });
-  // }, []);
 
   const { loading, error, data, refetch } =
-    // state.user === "client"
     user === "client" ? useQuery(GET_ME_CLIENT) : useQuery(GET_ME_CONSULTANT);
 
   useEffect(() => {
     selectedConsultant = getFromLocalStorage("selectedConsultant");
     refetch();
-    // }, [state.selectedConsultant]);
   }, [selectedConsultant]);
 
   if (loading) {
@@ -49,14 +41,18 @@ const profile = () => {
   }
 
   if (data) {
-    // if (state.user === "client") {
     if (user === "client") {
       //client profile
       const userData = data.meClient;
 
       return (
         <div>
-          <Container text style={style.margin}>
+          <Container
+            text
+            style={{
+              marginTop: "2em",
+            }}
+          >
             <h2>Hi {userData.fullName}!</h2>
             {!userData.scheduleDate ? (
               <BookConsultantSelect />

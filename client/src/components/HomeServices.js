@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { HashLink as Link } from "react-router-hash-link";
 import { Header, Image, Grid } from "semantic-ui-react";
 const services = [
   {
@@ -39,12 +39,12 @@ const HomeServices = () => {
       <Grid columns={3} stackable>
         {services.map((service) => (
           <Grid.Column key={service.key}>
-            <Link to={`/services/#${service.service}`}>
+            <Link to={`/services/#${service.service.replaceAll(" ", "")}`}>
               <Header size="medium" textAlign="center" dividing>
                 {service.service}
               </Header>
+              <Image src={`${service.image}`} />
             </Link>
-            <Image src={`${service.image}`} />
           </Grid.Column>
         ))}
       </Grid>

@@ -37,6 +37,16 @@ const ClientDetail = () => {
     variables: { clientId: id },
   });
 
+  const handleToggleClick = () => {
+    setToggleForm(!toggleForm);
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setClientForm({ ...clientForm, [name]: value });
+  };
+
   useEffect(() => {
     setClientForm({ soapNotes: soapNotes, additionalNotes: additionalNotes });
   }, [data]);
@@ -68,16 +78,6 @@ const ClientDetail = () => {
     soapNotes,
     additionalNotes,
   } = data.getClient;
-
-  const handleToggleClick = () => {
-    setToggleForm(!toggleForm);
-  };
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setClientForm({ ...clientForm, [name]: value });
-  };
 
   const handleButtonClick = async () => {
     try {
