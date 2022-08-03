@@ -95,4 +95,4 @@ The React Date Picker is by [Wojciech Maj](https://github.com/wojtekmaj/react-da
 
 ## Questions
 
-Please also direct questions to: Alyssa Natividad, https://github.com/alainatividad or alyssatnatividad@gmail.com.
+Please direct questions to: Alyssa Natividad, https://github.com/alainatividad or alyssatnatividad@gmail.com.
