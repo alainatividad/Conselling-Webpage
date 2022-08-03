@@ -1,4 +1,5 @@
 import React from "react";
+import { HashLink as Link } from "react-router-hash-link";
 import {
   Segment,
   Container,
@@ -20,7 +21,7 @@ const Footer = () => (
     vertical
   >
     <Container textAlign="center">
-      <Grid columns="equal" divided stackable inverted centered>
+      <Grid columns={4} divided stackable inverted centered>
         <Grid.Row>
           <Grid.Column position="center">
             <Image
@@ -29,35 +30,37 @@ const Footer = () => (
               centered
             />
           </Grid.Column>
-          {/* <Grid.Column position="center">
-            <Header inverted as="h4" content="Group 2" />
+          <Grid.Column position="center">
+            <Header inverted as="h4" content="Extra Links" />
             <List link inverted>
-              <List.Item as="a">Link One</List.Item>
-              <List.Item as="a">Link Two</List.Item>
-              <List.Item as="a">Link Three</List.Item>
-              <List.Item as="a">Link Four</List.Item>
+              <List.Item as={Link} to="/about">
+                About Us
+              </List.Item>
+              <List.Item as={Link} to="/about/#OurConsultants">
+                Our Team
+              </List.Item>
+              <List.Item as={Link} to="/sign-up">
+                Book Appointment
+              </List.Item>
             </List>
           </Grid.Column>
           <Grid.Column position="center">
-            <Header inverted as="h4" content="Group 3" />
-            <List link inverted>
-              <List.Item as="a">Link One</List.Item>
-              <List.Item as="a">Link Two</List.Item>
-              <List.Item as="a">Link Three</List.Item>
-              <List.Item as="a">Link Four</List.Item>
+            <Header inverted as="h4" content="Get in Touch" />
+            <List inverted>
+              <List.Item
+                icon="marker"
+                content="61 Walter Crescent, Koonawarra, New South Wales"
+              />
+              <List.Item icon="phone" content="(02) 4286 9345" />
+              <List.Item
+                icon="mail"
+                content={
+                  <a href="mailto:hello@kamalayan.com.au">
+                    hello@kamalayan.com.au
+                  </a>
+                }
+              />
             </List>
-          </Grid.Column> */}
-          <Grid.Column position="center">
-            <Header
-              inverted
-              as="h4"
-              content="Kamalayan Therapy Services"
-              textAlign="center"
-            />
-            <p>
-              Extra space for a call to action inside the footer that could help
-              re-engage users.
-            </p>
           </Grid.Column>
         </Grid.Row>
       </Grid>

@@ -4,7 +4,7 @@ import {
   Grid,
   Card,
   Header,
-  List,
+  Image,
   Container,
   Divider,
 } from "semantic-ui-react";
@@ -65,24 +65,13 @@ const About = () => {
               </Card.Content>
             </Card>
           </Grid.Column>
-          <Grid.Column>
-            <Card centered fluid>
-              <Card.Content header="Our Values" textAlign="center" />
-              <Card.Content centered>
-                <List bulleted textAlign="left">
-                  <List.Item>Commitment</List.Item>
-                  <List.Item>Integrity</List.Item>
-                  <List.Item>Compassion</List.Item>
-                  <List.Item>Quality</List.Item>
-                  <List.Item>Empowerment</List.Item>
-                  <List.Item>Authenticity</List.Item>
-                </List>
-              </Card.Content>
-            </Card>
-          </Grid.Column>
         </Grid>
-        <Divider hidden />
         <Header as="h2" textAlign="center" dividing>
+          Our Values
+        </Header>
+        <Image src={"/images/values.png"} fluid centered />
+        <Divider hidden />
+        <Header as="h2" textAlign="center" dividing id="OurConsultants">
           Our Consultants
         </Header>
       </Container>

@@ -39,6 +39,17 @@ db.once("open", async () => {
       role: "Psychologist",
       image: "consultant3.jpg",
     },
+    {
+      firstName: "Lianne",
+      lastName: "Gopez",
+      email: "lianne@mail.com",
+      password: "password12345",
+      description:
+        "Lianne has been working as a psychologist for three years. He finished his master's degree in Clinical Psychology at University of Santo Tomas in Manila, Philippines. Since then, he has been working with children and adults in individual therapy sessions. He specialises in using cognitive/behavioural techniques in decreasing the occurrence and frequency of challenging and disruptive behaviours. He also has an extensive experience in working with families in resolving conflicts and repairing family relationships. He believes in empowering clients to have an agency to make decisions and improve their lives.",
+      services: "CBT, DBT, ACT",
+      role: "Psychologist",
+      image: "consultant4.jpg",
+    },
   ]);
 
   // console.log(consultant);
