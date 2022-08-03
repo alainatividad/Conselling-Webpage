@@ -23,7 +23,7 @@ const SignupForm = () => {
     email: "",
     password: "",
   });
-  const [addUser, { error, data }] = useMutation(CREATE_CLIENT);
+  const [addUser, { data, error }] = useMutation(CREATE_CLIENT);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;

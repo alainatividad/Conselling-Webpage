@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Divider, Header } from "semantic-ui-react";
+import { Container, Divider, Header, Image } from "semantic-ui-react";
 
 const Services = () => {
   return (
@@ -229,6 +229,7 @@ const Services = () => {
           https://www.goodtherapy.org/learn-about-therapy/types/imago
         </p>
         <Divider hidden />
+        <Image src={"/images/services.jpg"} fluid centered />
         <Header
           size="large"
           content="Our Services"

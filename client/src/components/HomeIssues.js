@@ -56,7 +56,10 @@ const issues = [
     image: "/images/home-relationship.jpg",
     issue: "Relationship Issues",
     key: "Relationship Issues",
-    desc: ``,
+    desc: `Arguments and disagreements occur within all close relationships, and are a normal part of dealing with differences in ideas, beliefs, and perspectives.
+    However, chronic relationship conflict and stress is a serious issue. It has been linked to poorer mental and physical health and can affect other areas of life such as relationships with family and friends, and work colleagues. Children also suffer when exposed to high levels of conflict at home, and are at greater risk for anxiety, depression, behavioural problems, and poorer health.
+    Learning effective and respectful ways to communicate differences is an important step in building a healthy, fulfilling relationship, and which can benefit our overall wellbeing and those around us.
+    Relationship Problems (2022). Australian Psychological Society. https://psychology.org.au/for-the-public/psychology-topics/relationship-problems`,
   },
   {
     image: "/images/home-family.jpg",
