@@ -12,7 +12,7 @@
 
 Kamalayan Therapy Services is a full stack MERN single-page application where users, both clients and consultants, can view information about the company, send enquiries, sign up and log in. Logged in clients can also create, view, and cancel appointments to their chosen consultants, modify and update their own client details. Consultants can also view the booked clients' details and add notes regarding their appointments.
 
-This application uses node.JS, Express.js, MongDB, React with Semantic-UI. Additional packages needed for this application to run are `JWT` for user authentication, `GraphQL API` and `Apollo Client and Server`, `bcrypt`, `express`, and `React-Date-Picker`.
+This application uses node.JS, Express.js, MongDB, React with Semantic-UI. Additional packages needed for this application to run are `JWT` for user authentication, `GraphQL API` and `Apollo Client and Server`, `bcrypt`, `express`, `EmailJS`, and `React-Date-Picker`.
 
 ## Website
 
@@ -26,13 +26,19 @@ The hompage contains a short description of the company's aim, several issues ta
 
 ![The application's main page. A navigation bar up top with the site's header and links to logging in or signing up on the right](./client/src/assets/img/homepage.png)
 
-The About page contains the Mission, Vision, and Values of the company as well as the consultants and their information who are working for the company. The Services page contains a short description of each treatments and services offered. And a Contact Us page that contains a form which can be filled out with enquiries and questions.
+The About page contains the Mission, Vision, and Values of the company as well as the consultants and their information who are working for the company. The Services page contains a short description of each treatments and services offered. And a Contact Us page that contains a form which can be filled out with enquiries and questions. After submitting the form, an email will be sent to the email address entered containing the details entered on the form. The enquiry is also saved backend.
+
+![Enquiry email](./client/src/assets/img/enquiry.png)
 
 A user of this application can either be a client or a consultant. A person who wants to create an appointment for a consultation is a client, while the person offering the service is a consultant.
 
 A client needs to sign up and login before booking. Once logged in, they can select on which consultant to book along with the date and time of the appointment. They can also include their main concern along with their appointment.
 
 ![Booking an appointment](./client/src/assets/img/client-book.png)
+
+The client will be sent an email containing the appointment information.
+
+![Appointment email](./client/src/assets/img/book.png)
 
 Once that is done, the user can now modify their information that would be useful for the consultants especially when meeting for the first time. They can also cancel their appointment if they wanted to have their session in another date or time.
 
@@ -85,6 +91,8 @@ This project was completed by [Alyssa Natividad](https://github.com/alainativida
 
 The React Date Picker is by [Wojciech Maj](https://github.com/wojtekmaj/react-date-picker).
 
+[EmailJS](https://www.emailjs.com/)
+
 ## Questions
 
-Please also direct questions to: Alyssa Natividad, https://github.com/alainatividad or alyssatnatividad@gmail.com.
+Please direct questions to: Alyssa Natividad, https://github.com/alainatividad or alyssatnatividad@gmail.com.
