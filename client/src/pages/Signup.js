@@ -16,8 +16,6 @@ import {
 const SignupForm = () => {
   const navigate = useNavigate();
   storeInLocalStorage({ name: "current_page", value: "signup" });
-  // get user state
-  // const [state, dispatch] = useUserContext();
   // set initial form state
   const [userFormData, setUserFormData] = useState({
     firstName: "",
@@ -25,8 +23,6 @@ const SignupForm = () => {
     email: "",
     password: "",
   });
-  // // set state for alert
-  // const [showAlert, setShowAlert] = useState(false);
   const [addUser, { error, data }] = useMutation(CREATE_CLIENT);
 
   const handleInputChange = (event) => {
@@ -46,7 +42,6 @@ const SignupForm = () => {
 
       // if signup successful, update userState and statusState
       storeInLocalStorage({ name: "user", value: "client" });
-      // dispatch({ type: UPDATE_STATE, user: "client", status: true });
       Auth.login(data.createClient.token);
       navigate("/profile");
     } catch (err) {
@@ -70,7 +65,7 @@ const SignupForm = () => {
       ) : (
         <Grid textAlign="center" verticalAlign="middle">
           <Grid.Column style={{ maxWidth: 450 }}>
-            <Header as="h2" textAlign="center" content="Sign Up" />
+            <Header as="h2" size="large" textAlign="center" content="Sign Up" />
             <Form onSubmit={handleFormSubmit}>
               <Segment stacked>
                 <Form.Group widths="equal">

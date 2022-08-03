@@ -15,6 +15,7 @@ import { getISODay, differenceInCalendarDays } from "date-fns";
 
 import { GET_AVAILABILITY } from "../utils/queries";
 import { ADD_BOOKING } from "../utils/mutations";
+
 import LoaderComp from "./LoaderComp";
 import ErrorMessage from "./ErrorMessage";
 import { getFromLocalStorage } from "../utils/helper";
@@ -56,7 +57,6 @@ const LoadCalendar = () => {
 
   useEffect(() => {
     refetch();
-    // }, [state.selectedConsultant, dateValue]);
   }, [selectedConsultant, dateValue]);
 
   const handleChange = (event) => {
@@ -71,7 +71,6 @@ const LoadCalendar = () => {
     try {
       const booking = await addBooking({
         variables: {
-          // consultantId: state.selectedConsultant,
           consultantId: selectedConsultant,
           scheduleDate: time,
           concern: clientText,
@@ -88,7 +87,6 @@ const LoadCalendar = () => {
         }),
       };
 
-      console.log(templateParams);
       emailjs
         .send(emailService, bookingTemplate, templateParams, emailKey)
         .then(
@@ -99,14 +97,6 @@ const LoadCalendar = () => {
             console.log(error.text);
           }
         );
-      // .then(
-      //   (result) => {
-      //     <Message
-      //   },
-      //   (error) => {
-      //     console.log(error.text);
-      //   }
-      // );
     } catch (err) {
       console.error(err);
     }
@@ -120,8 +110,6 @@ const LoadCalendar = () => {
   }
 
   if (data.getAvailability) {
-    // const datePickerDates = data.getAvailability.map((el) => el.date);
-
     // move different timeslots to their own object
     const unwindData = unwindBy(data.getAvailability, "sched").filter(
       (el) => el.sched.booked === false
@@ -149,15 +137,6 @@ const LoadCalendar = () => {
         return getISODay(date) === 3 || getISODay(date) === 7;
       }
     }
-    // function tileContent({ date, view }) {
-    //   // Add class to tiles in month view only
-    //   if (view === "month") {
-    //     // Put an * for dates with schedules
-    //     if (datePickerDates.find((dDate) => isSameDay(dDate, date))) {
-    //       return "*";
-    //     }
-    //   }
-    // }
     return (
       <>
         <h3>Select date and time</h3>
@@ -169,7 +148,6 @@ const LoadCalendar = () => {
               value={dateValue}
               minDate={new Date()}
               tileDisabled={tileDisabled}
-              // tileContent={tileContent}
               formatLongDate={(locale, date) =>
                 date.toLocaleDateString("en-GB", {
                   timezone: "Australia/Sydney",
@@ -182,7 +160,6 @@ const LoadCalendar = () => {
               onChange={(e, data) => {
                 setTime(data.value);
               }}
-              // options={dates}
               options={filteredDates}
               placeholder="Choose a timeslot"
               selection

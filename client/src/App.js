@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   ApolloClient,
   InMemoryCache,
@@ -8,7 +8,7 @@ import {
 import "fomantic-ui-css/semantic.css";
 import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Container } from "semantic-ui-react";
+import { Container, Ref, Sticky, Menu } from "semantic-ui-react";
 
 import { UserProvider } from "./utils/UserContext";
 import Navbar from "./components/Navbar";
@@ -46,28 +46,44 @@ const client = new ApolloClient({
 });
 
 function App() {
+  const handleClick = () => {
+    window.scrollTo(0, 0);
+  };
+
+  const contextRef = useRef(null);
   return (
     <ApolloProvider client={client}>
       <UserProvider>
         {/* Wrap page elements in Router component to keep track of location state */}
         <Router>
           <Navbar />
-          <Container style={{ padding: "2em 0em" }}>
-            {/* Wrap Route elements in a Routes component */}
-            <Routes>
-              {/* Define routes using the Route component to render different page components at different paths */}
-              <Route path="/" element={<Home />} />
-              <Route path="/sign-up" element={<Signup />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/contact-us" element={<ContactUs />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/profile/:id" element={<ProfileDetail />} />
-              <Route path="/profile/client/:id" element={<ClientDetail />} />
-              <Route path="*" element={<NoMatch />} />
-            </Routes>
-          </Container>
+          <Ref innerRef={contextRef}>
+            <Container style={{ padding: "2em 0em" }}>
+              <Sticky context={contextRef} bottomOffset={0} offset={0} pushing>
+                <Menu icon vertical floated="right">
+                  <Menu.Item
+                    name="Top"
+                    icon="arrow up"
+                    onClick={() => handleClick()}
+                  />
+                </Menu>
+              </Sticky>
+              {/* Wrap Route elements in a Routes component */}
+              <Routes>
+                {/* Define routes using the Route component to render different page components at different paths */}
+                <Route path="/" element={<Home />} />
+                <Route path="/sign-up" element={<Signup />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/contact-us" element={<ContactUs />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/profile/:id" element={<ProfileDetail />} />
+                <Route path="/profile/client/:id" element={<ClientDetail />} />
+                <Route path="*" element={<NoMatch />} />
+              </Routes>
+            </Container>
+          </Ref>
           <Footer />
         </Router>
       </UserProvider>

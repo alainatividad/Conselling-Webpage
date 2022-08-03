@@ -1,39 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, Image, Divider } from "semantic-ui-react";
 import Auth from "../utils/auth";
-import { getFromLocalStorage, storeInLocalStorage } from "../utils/helper";
-// import header from "../assets/img/kamalayan-header-noborder.png";
 
 const AppNavbar = () => {
-  const style = {
-    h2: {
-      margin: "2em 0em 2em",
-    },
-    h3: {
-      padding: "2em",
-    },
-    last: {
-      marginBottom: "300px",
-    },
-  };
-
-  // get user state
-  const [state, setState] = useState("home");
-  // const [state, dispatch] = useUserContext();
-  let currentPage = getFromLocalStorage("current_page");
+  // from https://bobbyhadz.com/blog/react-router-get-current-route#:~:text=Use%20the%20useLocation()%20hook,pathname%20.
+  const location = useLocation();
+  const [currentPage, setCurrentPage] = useState(location.pathname);
   useEffect(() => {
-    if (!currentPage) {
-      currentPage = "home";
-      storeInLocalStorage({ name: "current_page", value: "home" });
-    }
-    handleItemClick(currentPage);
-  }, [currentPage, state]);
+    setCurrentPage(location.pathname);
+  }, [location.pathname]);
 
   const handleItemClick = async (name) => {
-    setState(name);
-    storeInLocalStorage({ name: "current_page", value: name });
-    // dispatch({ type: UPDATE_CURRPAGE, payload: name });
+    setCurrentPage(name);
   };
 
   return (
@@ -41,41 +20,39 @@ const AppNavbar = () => {
       <Image
         src={"/images/kamalayan-header-noborder.png"}
         size="large"
-        style={style.h3}
+        style={{
+          padding: "2em",
+        }}
         centered
       />
-      <Menu secondary stackable>
+      <Menu secondary stackable size="huge">
         <Menu.Menu position="center">
           <Menu.Item
             as={Link}
             to="/"
             name="home"
-            // active={state.currentPage === "home"}
-            active={currentPage === "home"}
+            active={currentPage.includes("home")}
             onClick={() => handleItemClick("home")}
           />
           <Menu.Item
             as={Link}
             to="/about"
             name="about"
-            // active={state.currentPage === "about"}
-            active={currentPage === "about"}
+            active={currentPage.includes("about")}
             onClick={() => handleItemClick("about")}
           />
           <Menu.Item
             as={Link}
             to="/services"
             name="services"
-            // active={state.currentPage === "services"}
-            active={currentPage === "services"}
+            active={currentPage.includes("services")}
             onClick={() => handleItemClick("services")}
           />
           <Menu.Item
             as={Link}
             to="/contact-us"
             name="contact us"
-            // active={state.currentPage === "contact"}
-            active={currentPage === "contact"}
+            active={currentPage.includes("contact")}
             onClick={() => handleItemClick("contact")}
           />
           {/* if user is logged in show profile and logout */}
@@ -85,8 +62,7 @@ const AppNavbar = () => {
                 as={Link}
                 to="/profile"
                 name="profile"
-                // active={state.currentPage === "profile"}
-                active={currentPage === "profile"}
+                active={currentPage.includes("profile")}
                 onClick={() => handleItemClick("profile")}
               />
               <Menu.Item name="logout" onClick={() => Auth.logout()} />
@@ -97,16 +73,14 @@ const AppNavbar = () => {
                 as={Link}
                 to="/sign-up"
                 name="sign up"
-                // active={state.currentPage === "signup"}
-                active={currentPage === "signup"}
-                onClick={() => handleItemClick("signup")}
+                active={currentPage.includes("sign-up")}
+                onClick={() => handleItemClick("sign-up")}
               />
               <Menu.Item
                 as={Link}
                 to="/login"
                 name="login"
-                // active={state.currentPage === "login"}
-                active={currentPage === "login"}
+                active={currentPage.includes("login")}
                 onClick={() => handleItemClick("login")}
               />
             </>

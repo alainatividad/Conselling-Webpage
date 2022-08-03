@@ -5,6 +5,7 @@ import { storeInLocalStorage } from "../utils/helper";
 import { GET_CONSULTANTS } from "../utils/queries";
 import LoadCalendar from "./LoadCalendar";
 import LoaderComp from "./LoaderComp";
+import ErrorMessage from "./ErrorMessage";
 
 const BookConsultantSelect = () => {
   // get user state
@@ -23,11 +24,7 @@ const BookConsultantSelect = () => {
     return <LoaderComp />;
   }
   if (error) {
-    return (
-      <>
-        <h2>Error! {error.message}</h2>
-      </>
-    );
+    return <ErrorMessage header="error" message={error.message} />;
   }
 
   // from https://lauren-gifford.medium.com/controlled-select-dropdown-using-semantic-ui-for-react-a934af3ca326

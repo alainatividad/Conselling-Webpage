@@ -4,7 +4,6 @@ import ClientList from "./ClientList";
 
 const ConsultantProfile = (props) => {
   const clientList = props.clients || [];
-  console.log(clientList);
 
   return (
     <Container>

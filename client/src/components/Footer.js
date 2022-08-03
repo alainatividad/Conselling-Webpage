@@ -20,7 +20,7 @@ const Footer = () => (
     vertical
   >
     <Container textAlign="center">
-      <Grid columns={4} divided stackable inverted>
+      <Grid columns="equal" divided stackable inverted centered>
         <Grid.Row>
           <Grid.Column position="center">
             <Image
@@ -29,7 +29,7 @@ const Footer = () => (
               centered
             />
           </Grid.Column>
-          <Grid.Column position="center">
+          {/* <Grid.Column position="center">
             <Header inverted as="h4" content="Group 2" />
             <List link inverted>
               <List.Item as="a">Link One</List.Item>
@@ -46,9 +46,14 @@ const Footer = () => (
               <List.Item as="a">Link Three</List.Item>
               <List.Item as="a">Link Four</List.Item>
             </List>
-          </Grid.Column>
+          </Grid.Column> */}
           <Grid.Column position="center">
-            <Header inverted as="h4" content="Footer Header" />
+            <Header
+              inverted
+              as="h4"
+              content="Kamalayan Therapy Services"
+              textAlign="center"
+            />
             <p>
               Extra space for a call to action inside the footer that could help
               re-engage users.

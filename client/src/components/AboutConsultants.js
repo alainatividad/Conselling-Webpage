@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Header, Image } from "semantic-ui-react";
+import { Divider, Grid, Header, Image } from "semantic-ui-react";
 
 const AboutConsultants = (props) => {
   return (
@@ -16,6 +16,7 @@ const AboutConsultants = (props) => {
 
         <Header size="tiny">{props.services}</Header>
       </Grid.Column>
+      <Divider hidden />
     </Grid.Row>
   );
 };

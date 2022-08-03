@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Container, Form, Button, TextArea, Message } from "semantic-ui-react";
 import { useQuery, useMutation } from "@apollo/client";
-// import { useUserContext } from "../utils/UserContext";
 import { GET_ME_CLIENT } from "../utils/queries";
 import { UPDATE_CLIENT, DELETE_BOOKING } from "../utils/mutations";
 
@@ -14,9 +13,7 @@ import Auth from "../utils/auth";
 
 const ProfileDetail = () => {
   const navigate = useNavigate();
-  // get user state
   const { id } = useParams();
-  // const [state] = useUserContext();
   const [errorMsg, setErrorMsg] = useState("");
   const [success, setSuccess] = useState(false);
   const [clientForm, setClientForm] = useState({
@@ -65,7 +62,6 @@ const ProfileDetail = () => {
     try {
       await deleteBooking({
         variables: {
-          // consultantId: state.selectedConsultant,
           consultant: clientForm.consultant,
           scheduleDate: clientForm.scheduleDate,
         },
@@ -225,7 +221,9 @@ const ProfileDetail = () => {
         />
         <Button onClick={handleCancelButton}>Cancel booking</Button>
       </Form>
-      {success && <Message content="Success!!" />}
+      {success && (
+        <Message content="Your changes have been succesfully saved" />
+      )}
       {errorMsg && <ErrorMessage header="error" message={errorMsg} />}
     </Container>
   );
